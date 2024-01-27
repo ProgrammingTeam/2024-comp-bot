@@ -16,4 +16,8 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+public static final int limelightHeight = 0;
+public static final int[] targetHeights = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+public static final double angleOffset = 0;
 }
