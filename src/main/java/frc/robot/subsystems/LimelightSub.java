@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LimelightSub extends SubsystemBase {
-  public double distenceFromTarget;
+  public  double distenceFromTarget;
   private double opposite;
   private double TxValue;
   private double TyValue;
@@ -25,7 +25,7 @@ public class LimelightSub extends SubsystemBase {
   public LimelightSub() {
     NetworkTable Limelight = NetworkTableInstance.getDefault().getTable("limelight");
     LimeTX = Limelight.getEntry("tx");
-    LimeTY = Limelight.getEntry("tY");
+    LimeTY = Limelight.getEntry("ty");
     LimeTid = Limelight.getEntry("tid");
 
   }
@@ -45,6 +45,7 @@ public class LimelightSub extends SubsystemBase {
     SmartDashboard.putNumber("Lime TY value", TyValue);
     SmartDashboard.putNumber("Lime Tid value", TidValue);
     SmartDashboard.putNumber("height difference", opposite);
+    SmartDashboard.putNumber("thw distence from the target", distenceFromTarget);
     // This method will be called once per scheduler run
   }
 
