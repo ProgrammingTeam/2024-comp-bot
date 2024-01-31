@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.units.Distance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.MathUtil;
@@ -44,9 +43,10 @@ public class LimelightDriveCom extends Command {
     }
     DisteanceToGo = m_LimelightSub.distenceFromTarget - m_DistenceNeeded;
     SmartDashboard.putNumber("distence to go", DisteanceToGo);
-    
-    m_TankSub.setMotors(MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive),
-       MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive));       
+    double inverter = Math.signum(PIDCon.calculate(DisteanceToGo));
+
+    m_TankSub.setMotors(MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive) * inverter,
+                        MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive) * inverter);       
   }
 
   // Called once the command ends or is interrupted.

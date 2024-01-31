@@ -18,7 +18,10 @@ public final class Constants {
   }
 
 public static final double limelightHeight = 6.125;
+
+//Do not change zero it is a placeholder and should not be used in the code.
 public static final double[] targetHeights = {0, 52.625, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15, 16};
+
 public static final double angleOffset = 3.8;
 
 public static final int leftMotorID = 5;
