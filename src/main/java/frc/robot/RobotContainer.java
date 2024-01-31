@@ -16,30 +16,29 @@ import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
-
 public class RobotContainer {
 
-  public final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-      SwerveDrive swerveDrive;
-      SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
-      TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+  public final CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.kDriverControllerPort);
+  SwerveDrive swerveDrive;
+  SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
+  TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
 
-    public RobotContainer() {
+  public RobotContainer() {
     try {
       double maximumSpeed = Units.feetToMeters(4.5);
-      File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
+      File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
       swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
     } catch (Exception e) {
-      //  handled exception
+      // handled exception
     }
-      swerveSubSystem.setDefaultCommand(swerveCommand);
+    swerveSubSystem.setDefaultCommand(swerveCommand);
     configureBindings();
   }
 
   private void configureBindings() {
-    
-    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   public Command getAutonomousCommand() {
