@@ -17,6 +17,8 @@ public class TeleopSwerveCommand extends Command {
   public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandXboxController controller) {
       m_swerveSubSystem = swerveSubSystem;
       xboxController = controller;
+
+      addRequirements(m_swerveSubSystem);
     }
 
   // Called when the command is initially scheduled.
