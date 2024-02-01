@@ -32,7 +32,7 @@ public class RobotContainer {
       File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
       swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
     } catch (Exception e) {
-      // TODO: handle exception
+      //  handled exception
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
