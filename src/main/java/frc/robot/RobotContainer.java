@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.LimelightDriveCom;
+import frc.robot.commands.LineUpCom;
+import frc.robot.commands.NothingDrive;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.tankDrive;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,7 +47,10 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub, 20));
+    m_TankDriveSub.setDefaultCommand(new NothingDrive(m_TankDriveSub));
+    m_driverController.b().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub, 60));
+    m_driverController.x().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub, 200));
+    m_driverController.a().whileTrue(new LineUpCom(m_TankDriveSub, m_LimelightSub));
   }
 
   /**

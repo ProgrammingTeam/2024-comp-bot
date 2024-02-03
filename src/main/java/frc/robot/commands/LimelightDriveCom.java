@@ -39,19 +39,23 @@ public class LimelightDriveCom extends Command {
   @Override
   public void execute() {
     if (m_LimelightSub.getTarget() == -1) {
+      m_TankSub.setMotors(0, 0);
       return;
     }
     DisteanceToGo = m_LimelightSub.distenceFromTarget - m_DistenceNeeded;
     SmartDashboard.putNumber("distence to go", DisteanceToGo);
-    double inverter = Math.signum(PIDCon.calculate(DisteanceToGo));
-
-    m_TankSub.setMotors(MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive) * inverter,
-                        MathUtil.clamp(PIDCon.calculate(DisteanceToGo), Constants.lowDrive, Constants.highDrive) * inverter);       
+    double inverter = Math.signum(DisteanceToGo);
+    
+    m_TankSub.setMotors(MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive) * inverter,
+                        MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive) * inverter);       
+    SmartDashboard.putNumber("Absolute motor speed", MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive));
   }
-
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) 
+  {
+    m_TankSub.setMotors(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override

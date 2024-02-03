@@ -52,4 +52,7 @@ public class LimelightSub extends SubsystemBase {
   public int getTarget() {
     return (int) LimeTid.getInteger(-1);
   }
+  public double angleFromCenter() {
+    return TxValue;
+  }
 }
