@@ -32,4 +32,6 @@ public static final double kp = 0.002;
 
 public static final double lowDrive = 0.04;
 public static final double highDrive = 0.2;
+
+public static final double DriveSpeed = 0.07;
 }

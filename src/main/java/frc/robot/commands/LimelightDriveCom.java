@@ -7,6 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+
+import org.opencv.core.Mat;
+
 import edu.wpi.first.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSub;
@@ -33,6 +36,7 @@ public class LimelightDriveCom extends Command {
   public void initialize() {
     m_TankSub.setMotors(0, 0);
     PIDCon.setSetpoint(m_DistenceNeeded);
+    PIDCon.setTolerance(3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,9 +50,9 @@ public class LimelightDriveCom extends Command {
     SmartDashboard.putNumber("distence to go", DisteanceToGo);
     double inverter = Math.signum(DisteanceToGo);
     
-    m_TankSub.setMotors(MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive) * inverter,
-                        MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive) * inverter);       
-    SmartDashboard.putNumber("Absolute motor speed", MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive));
+    m_TankSub.setMotors(Constants.DriveSpeed * inverter, Constants.DriveSpeed * inverter);       
+  //  SmartDashboard.putNumber("Absolute motor speed", MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive));
+    isFinished();
   }
   // Called once the command ends or is interrupted.
   @Override
@@ -60,6 +64,6 @@ public class LimelightDriveCom extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return PIDCon.atSetpoint();
+    return Math.abs(DisteanceToGo) < 3;
   }
 }
