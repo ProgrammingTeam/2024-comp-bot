@@ -17,10 +17,11 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-public static final double limelightHeight = 6.125;
+//public static final double limelightHeight = 6.125;
+public static final double limelightHeight = 28.5;
 
 //Do not change zero it is a placeholder and should not be used in the code.
-public static final double[] targetHeights = {0, 52.625, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15, 16};
+public static final double[] targetHeights = {0, 53.375, 53.375, 58.125, 58.125, 53.375, 53.375, 58.125, 58.125, 53.375, 53.375, 52.75, 52.75, 52.75, 52.75, 52.75, 52.75};
 
 public static final double angleOffset = 3.8;
 

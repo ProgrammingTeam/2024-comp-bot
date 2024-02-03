@@ -45,7 +45,7 @@ public class LimelightSub extends SubsystemBase {
     SmartDashboard.putNumber("Lime TY value", TyValue);
     SmartDashboard.putNumber("Lime Tid value", TidValue);
     SmartDashboard.putNumber("height difference", opposite);
-    SmartDashboard.putNumber("thw distence from the target", distenceFromTarget);
+    SmartDashboard.putNumber("the distence from the target", distenceFromTarget);
     // This method will be called once per scheduler run
   }
 
