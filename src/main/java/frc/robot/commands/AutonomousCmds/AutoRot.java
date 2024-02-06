@@ -5,27 +5,26 @@
 package frc.robot.commands.AutonomousCmds;
 
 import edu.wpi.first.wpilibj.Timer;
-
-import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.AutonomousConstants;
 import frc.robot.subsystems.SwerveSubSystem;
 
-public class AutoDrive extends Command {
+public class AutoRot extends Command {
   Timer timer;
   SwerveSubSystem SwerveSub;
   double leftYValue;
   double leftXValue;
   double rightXValue;
   boolean TimeMet;
-  boolean Forward;
+  boolean Left;
   int TotalTime;
 
-  public AutoDrive(SwerveSubSystem swerveSubSystem, int TimeSec, boolean isForward) {
+
+  public AutoRot(SwerveSubSystem swerveSubSystem, int TimeInput, boolean isLeft) {
     SwerveSub = swerveSubSystem;
-    Forward = isForward;
-    TotalTime = TimeSec;
+    TotalTime = TimeInput;
+    Left = isLeft;
 
     addRequirements(SwerveSub);
   }
@@ -33,19 +32,19 @@ public class AutoDrive extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer = new Timer();
-    timer.start();
-    SwerveSub.drive(0, 0, 0);
-    TimeMet = false;
     leftXValue = AutonomousConstants.AutoLeftX;
     rightXValue = AutonomousConstants.AutoRightX;
     leftYValue = AutonomousConstants.AutoLeftY;
+    TimeMet = false;
+    timer = new Timer();
+    timer.start();
+    SwerveSub.drive(0, 0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Forward == true) {
+     if (Left == true) {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(leftYValue, leftXValue, rightXValue);
         Commands.waitSeconds(TotalTime);
@@ -53,7 +52,7 @@ public class AutoDrive extends Command {
       } else {
         SwerveSub.drive(0, 0, 0);
       }
-    } else if (Forward == false) {
+    } else if (Left == false) {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(-leftYValue, -leftXValue, -rightXValue);
         Commands.waitSeconds(TotalTime);
