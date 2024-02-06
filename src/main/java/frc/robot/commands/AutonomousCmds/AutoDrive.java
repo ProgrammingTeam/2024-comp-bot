@@ -49,17 +49,19 @@ public class AutoDrive extends Command {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(leftYValue, leftXValue, rightXValue);
         Commands.waitSeconds(TotalTime);
-        TimeMet = true;
+        TimeMet = false;
       } else {
         SwerveSub.drive(0, 0, 0);
+        TimeMet = true;
       }
     } else if (Forward == false) {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(-leftYValue, -leftXValue, -rightXValue);
         Commands.waitSeconds(TotalTime);
-        TimeMet = true;
+        TimeMet = false;
       } else {
         SwerveSub.drive(0, 0, 0);
+        TimeMet = true;
       }
     }
   }
