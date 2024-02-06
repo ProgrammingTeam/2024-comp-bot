@@ -20,11 +20,11 @@ import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
 
-  public final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-      SwerveDrive swerveDrive;
-      SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
-      TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+  public final CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.kDriverControllerPort);
+  SwerveDrive swerveDrive;
+  SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
+  TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
 
   public RobotContainer() {
     try {
@@ -36,7 +36,7 @@ public class RobotContainer {
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
-      swerveSubSystem.setDefaultCommand(swerveCommand);
+    swerveSubSystem.setDefaultCommand(swerveCommand);
     configureBindings();
   }
 
