@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.MotorFeedbackSensor;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerveCommand;
 import frc.robot.commands.AutonomousCmds.AutoDriveGroup;
@@ -19,11 +20,11 @@ import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
 
-  public final CommandXboxController m_driverController = new CommandXboxController(
-      OperatorConstants.kDriverControllerPort);
-  SwerveDrive swerveDrive;
-  SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
-  TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+  public final CommandXboxController m_driverController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      SwerveDrive swerveDrive;
+      SwerveSubSystem swerveSubSystem = new SwerveSubSystem(swerveDrive);
+      TeleopSwerveCommand swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
 
   public RobotContainer() {
     try {
@@ -33,7 +34,9 @@ public class RobotContainer {
     } catch (Exception e) {
       // handled exception
     }
-    swerveSubSystem.setDefaultCommand(swerveCommand);
+    swerveSubSystem = new SwerveSubSystem(swerveDrive);
+    swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+      swerveSubSystem.setDefaultCommand(swerveCommand);
     configureBindings();
   }
 
