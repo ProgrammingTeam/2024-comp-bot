@@ -17,13 +17,13 @@ public class AutoRot extends Command {
   double X;
   double rot;
   boolean TimeMet;
-  boolean Left;
+  boolean Right;
   int TotalTime;
 
-  public AutoRot(SwerveSubSystem swerveSubSystem, int TimeInput, boolean isLeft) {
+  public AutoRot(SwerveSubSystem swerveSubSystem, int TimeInput, boolean isRight) {
     SwerveSub = swerveSubSystem;
     TotalTime = TimeInput;
-    Left = isLeft;
+    Right = isRight;
 
     addRequirements(SwerveSub);
   }
@@ -31,9 +31,9 @@ public class AutoRot extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    X = AutonomousConstants.autoX;
+    X = 0;
     rot = AutonomousConstants.autoRotation;
-    Y = AutonomousConstants.autoY;
+    Y = 0;
     TimeMet = false;
     timer = new Timer();
     timer.start();
@@ -43,7 +43,7 @@ public class AutoRot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Left == true) {
+    if (Right == true) {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(Y, X, rot);
         Commands.waitSeconds(TotalTime);
@@ -51,7 +51,7 @@ public class AutoRot extends Command {
       } else {
         SwerveSub.drive(0, 0, 0);
       }
-    } else if (Left == false) {
+    } else if (Right == false) {
       if (timer.get() <= TotalTime) {
         SwerveSub.drive(-Y, -X, -rot);
         Commands.waitSeconds(TotalTime);

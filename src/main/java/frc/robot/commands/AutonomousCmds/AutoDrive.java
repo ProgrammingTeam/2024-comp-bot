@@ -47,7 +47,7 @@ public class AutoDrive extends Command {
   public void execute() {
     if (Forward == true) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(Y, X, rot);
+        SwerveSub.drive(X, Y, rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = false;
       } else {
@@ -56,7 +56,7 @@ public class AutoDrive extends Command {
       }
     } else if (Forward == false) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(-Y, -X, -rot);
+        SwerveSub.drive(-X, -Y, -rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = false;
       } else {
