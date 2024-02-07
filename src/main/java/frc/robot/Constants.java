@@ -22,8 +22,8 @@ public final class Constants {
   }
 
   public static class AutonomousConstants {
-    public static final double AutoLeftY = 0.25;
-    public static final double AutoLeftX = 0.25;
-    public static final double AutoRightX = 0.25;
+    public static final double autoY = 0.25;
+    public static final double autoX = 0.25;
+    public static final double autoRotation = 0.25;
   }
 }

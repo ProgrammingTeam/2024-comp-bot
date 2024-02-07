@@ -17,9 +17,9 @@ public class SwerveSubSystem extends SubsystemBase {
     m_swerveDrive = swerveDrive;
   }
 
-  public void drive(double leftY, double leftX, double rightX){
-    m_swerveDrive.drive(new Translation2d(leftX,leftY),
-      rightX, true, false);
+  public void drive(double X, double Y, double rot){
+    m_swerveDrive.drive(new Translation2d(X,Y),
+      rot, true, false);
   }
 
   @Override

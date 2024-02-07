@@ -13,13 +13,12 @@ import frc.robot.subsystems.SwerveSubSystem;
 public class AutoRot extends Command {
   Timer timer;
   SwerveSubSystem SwerveSub;
-  double leftYValue;
-  double leftXValue;
-  double rightXValue;
+  double Y;
+  double X;
+  double rot;
   boolean TimeMet;
   boolean Left;
   int TotalTime;
-
 
   public AutoRot(SwerveSubSystem swerveSubSystem, int TimeInput, boolean isLeft) {
     SwerveSub = swerveSubSystem;
@@ -32,9 +31,9 @@ public class AutoRot extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    leftXValue = AutonomousConstants.AutoLeftX;
-    rightXValue = AutonomousConstants.AutoRightX;
-    leftYValue = AutonomousConstants.AutoLeftY;
+    X = AutonomousConstants.autoX;
+    rot = AutonomousConstants.autoRotation;
+    Y = AutonomousConstants.autoY;
     TimeMet = false;
     timer = new Timer();
     timer.start();
@@ -44,9 +43,9 @@ public class AutoRot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     if (Left == true) {
+    if (Left == true) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(leftYValue, leftXValue, rightXValue);
+        SwerveSub.drive(Y, X, rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = true;
       } else {
@@ -54,7 +53,7 @@ public class AutoRot extends Command {
       }
     } else if (Left == false) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(-leftYValue, -leftXValue, -rightXValue);
+        SwerveSub.drive(-Y, -X, -rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = true;
       } else {

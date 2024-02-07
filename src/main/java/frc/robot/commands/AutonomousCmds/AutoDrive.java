@@ -15,9 +15,9 @@ import frc.robot.subsystems.SwerveSubSystem;
 public class AutoDrive extends Command {
   Timer timer;
   SwerveSubSystem SwerveSub;
-  double leftYValue;
-  double leftXValue;
-  double rightXValue;
+  double Y;
+  double X;
+  double rot;
   boolean TimeMet;
   boolean Forward;
   int TotalTime;
@@ -37,9 +37,9 @@ public class AutoDrive extends Command {
     timer.start();
     SwerveSub.drive(0, 0, 0);
     TimeMet = false;
-    leftXValue = AutonomousConstants.AutoLeftX;
-    rightXValue = AutonomousConstants.AutoRightX;
-    leftYValue = AutonomousConstants.AutoLeftY;
+    X = AutonomousConstants.autoX;
+    rot = 0;
+    Y = AutonomousConstants.autoY;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,7 +47,7 @@ public class AutoDrive extends Command {
   public void execute() {
     if (Forward == true) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(leftYValue, leftXValue, rightXValue);
+        SwerveSub.drive(Y, X, rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = false;
       } else {
@@ -56,7 +56,7 @@ public class AutoDrive extends Command {
       }
     } else if (Forward == false) {
       if (timer.get() <= TotalTime) {
-        SwerveSub.drive(-leftYValue, -leftXValue, -rightXValue);
+        SwerveSub.drive(-Y, -X, -rot);
         Commands.waitSeconds(TotalTime);
         TimeMet = false;
       } else {
