@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import java.io.File;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -32,7 +33,7 @@ public class RobotContainer {
       File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
       swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
     } catch (Exception e) {
-      // handled exception
+      SmartDashboard.putString("Exception", "Null");
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
