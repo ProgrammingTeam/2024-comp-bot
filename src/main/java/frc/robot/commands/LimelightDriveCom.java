@@ -19,14 +19,13 @@ public class LimelightDriveCom extends Command {
   /** Creates a new LimelightDriveCom. */
   private final LimelightSub m_LimelightSub;
   private final tankDrive m_TankSub;
-  private final double m_DistenceNeeded;
+
   private double DisteanceToGo;
   private PIDController PIDCon = new PIDController(Constants.kp, 0, 0);
-  public LimelightDriveCom(tankDrive TankSub, LimelightSub LimeSub, double DistanceNeeded) {
+  public LimelightDriveCom(tankDrive TankSub, LimelightSub LimeSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_TankSub = TankSub;
     m_LimelightSub = LimeSub;
-    m_DistenceNeeded = DistanceNeeded;
 
     addRequirements(m_TankSub);
   }
@@ -35,8 +34,6 @@ public class LimelightDriveCom extends Command {
   @Override
   public void initialize() {
     m_TankSub.setMotors(0, 0);
-    PIDCon.setSetpoint(m_DistenceNeeded);
-    PIDCon.setTolerance(3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,11 +43,17 @@ public class LimelightDriveCom extends Command {
       m_TankSub.setMotors(0, 0);
       return;
     }
-    DisteanceToGo = m_LimelightSub.distenceFromTarget - m_DistenceNeeded;
+    try {
+      DisteanceToGo = m_LimelightSub.distenceFromTarget - Constants.targetDistence[m_LimelightSub.getTarget()];
     SmartDashboard.putNumber("distence to go", DisteanceToGo);
     double inverter = Math.signum(DisteanceToGo);
+    m_TankSub.setMotors(Constants.DriveSpeed * inverter, Constants.DriveSpeed * inverter);
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
     
-    m_TankSub.setMotors(Constants.DriveSpeed * inverter, Constants.DriveSpeed * inverter);       
+    
+           
   //  SmartDashboard.putNumber("Absolute motor speed", MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive));
     isFinished();
   }

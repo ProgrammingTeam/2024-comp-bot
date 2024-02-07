@@ -16,6 +16,6 @@ public class autoLimeDrive extends SequentialCommandGroup {
   public autoLimeDrive(LimelightSub m_LimeSub, tankDrive m_TankSub) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new LimelightDriveCom(m_TankSub, m_LimeSub, 48));
+    addCommands(new LimelightDriveCom(m_TankSub, m_LimeSub));
   }
 }

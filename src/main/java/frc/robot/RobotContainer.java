@@ -48,8 +48,8 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_TankDriveSub.setDefaultCommand(new NothingDrive(m_TankDriveSub));
-    m_driverController.b().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub, 60));
-    m_driverController.x().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub, 200));
+    m_driverController.b().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub));
+    m_driverController.x().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub));
     m_driverController.a().whileTrue(new LineUpCom(m_TankDriveSub, m_LimelightSub));
   }
 
