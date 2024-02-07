@@ -6,23 +6,26 @@ package frc.robot.subsystems;
 
 import org.opencv.core.TickMeter;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
 
 public class SwerveSubSystem extends SubsystemBase {
   SwerveDrive m_swerveDrive;
+  Rotation2d yaw;
+
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
   }
 
-  public void drive(double X, double Y, double rot){
-    m_swerveDrive.drive(new Translation2d(X,Y),
-      rot, true, false);
+  public void drive(double X, double Y, double rot) {
+    m_swerveDrive.drive(new Translation2d(X, Y),
+        rot, true, false);
   }
 
   @Override
   public void periodic() {
+    yaw = m_swerveDrive.getYaw();
   }
 }

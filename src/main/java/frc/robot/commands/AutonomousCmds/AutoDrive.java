@@ -18,14 +18,11 @@ public class AutoDrive extends Command {
   double Y;
   double X;
   double rot;
-  boolean TimeMet;
   boolean Forward;
-  int TotalTime;
 
-  public AutoDrive(SwerveSubSystem swerveSubSystem, int TimeSec, boolean isForward) {
+  public AutoDrive(SwerveSubSystem swerveSubSystem, boolean isForward) {
     SwerveSub = swerveSubSystem;
     Forward = isForward;
-    TotalTime = TimeSec;
 
     addRequirements(SwerveSub);
   }
@@ -33,10 +30,7 @@ public class AutoDrive extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer = new Timer();
-    timer.start();
     SwerveSub.drive(0, 0, 0);
-    TimeMet = false;
     X = AutonomousConstants.autoX;
     rot = 0;
     Y = AutonomousConstants.autoY;
@@ -46,24 +40,19 @@ public class AutoDrive extends Command {
   @Override
   public void execute() {
     if (Forward == true) {
-      if (timer.get() <= TotalTime) {
-        SwerveSub.drive(X, Y, rot);
-        Commands.waitSeconds(TotalTime);
-        TimeMet = false;
+      if () {
+
       } else {
-        SwerveSub.drive(0, 0, 0);
-        TimeMet = true;
+
       }
     } else if (Forward == false) {
-      if (timer.get() <= TotalTime) {
-        SwerveSub.drive(-X, -Y, -rot);
-        Commands.waitSeconds(TotalTime);
-        TimeMet = false;
+      if () {
+
       } else {
-        SwerveSub.drive(0, 0, 0);
-        TimeMet = true;
+
       }
     }
+
   }
 
   // Called once the command ends or is interrupted.
@@ -75,6 +64,6 @@ public class AutoDrive extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return TimeMet;
+    return false;
   }
 }

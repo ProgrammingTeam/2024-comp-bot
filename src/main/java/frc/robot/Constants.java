@@ -26,4 +26,9 @@ public final class Constants {
     public static final double autoX = 0.25;
     public static final double autoRotation = 0.25;
   }
+
+  public static class RobotConstants {
+    public static final double GearRatio = 1;
+    public static final double Diameter = 4;
+  }
 }

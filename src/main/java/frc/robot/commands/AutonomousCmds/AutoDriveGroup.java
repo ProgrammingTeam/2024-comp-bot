@@ -14,7 +14,7 @@ public class AutoDriveGroup extends SequentialCommandGroup {
 
   public AutoDriveGroup(SwerveSubSystem swerveSubSystem) {
     addCommands(
-      new AutoDrive(swerveSubSystem, 3, true)
+      new AutoDrive(swerveSubSystem, true)
     );
   }
 }
