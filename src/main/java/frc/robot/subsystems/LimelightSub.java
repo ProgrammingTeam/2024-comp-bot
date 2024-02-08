@@ -36,7 +36,7 @@ public class LimelightSub extends SubsystemBase {
     TyValue = LimeTY.getDouble(0);
     TidValue = (int) LimeTid.getDouble(-1);
 
-    if (TidValue != -1) {
+    if (TidValue >= 1 && TidValue <= 16) {
       opposite = Constants.targetHeights[TidValue] - Constants.limelightHeight;
       distenceFromTarget = opposite / Math.tan(Math.toRadians(LimeTY.getDouble(0) + Constants.angleOffset));
     }
