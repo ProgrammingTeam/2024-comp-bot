@@ -35,9 +35,8 @@ public class LimelightDriveCom extends Command {
   @Override
   public void initialize() {
     CenterPIDCon.setSetpoint(0);
-    CenterPIDCon.setTolerance(.5);
-    DisteancePIDCon.setSetpoint(Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()]);
-    DisteancePIDCon.setTolerance(0.5);
+    CenterPIDCon.setTolerance(Constants.LimelightConstants.TxTolerance);
+    DisteancePIDCon.setTolerance(Constants.LimelightConstants.TyTolerance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +47,7 @@ public class LimelightDriveCom extends Command {
       return;
     }
     try {
+      DisteancePIDCon.setSetpoint(Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()]);
       DisteanceToGo = m_LimelightSub.distenceFromTarget - Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()];
       SmartDashboard.putNumber("distence to go", DisteanceToGo);
       double inverter = Math.signum(DisteanceToGo);
@@ -73,6 +73,6 @@ public class LimelightDriveCom extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(DisteanceToGo) < 3;
+    return CenterPIDCon.atSetpoint() && DisteancePIDCon.atSetpoint();
   }
 }

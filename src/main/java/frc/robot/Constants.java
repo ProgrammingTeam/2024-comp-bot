@@ -33,6 +33,9 @@ public final class Constants {
 
     public static final double lowDrive = 0.04;
     public static final double highDrive = 0.2;
+
+    public static final double TxTolerance = 1;
+    public static final double TyTolerance = 0.5;
   }
 //public static final double limelightHeight = ?
 
