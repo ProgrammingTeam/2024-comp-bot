@@ -13,41 +13,47 @@ import org.opencv.core.Mat;
 import edu.wpi.first.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSub;
-import frc.robot.subsystems.tankDrive;
+import frc.robot.subsystems.SwerveSubSystem;
 
 public class LimelightDriveCom extends Command {
   /** Creates a new LimelightDriveCom. */
   private final LimelightSub m_LimelightSub;
-  private final tankDrive m_TankSub;
+  private final SwerveSubSystem m_SwerveSub;
 
   private double DisteanceToGo;
-  private PIDController PIDCon = new PIDController(Constants.kp, 0, 0);
-  public LimelightDriveCom(tankDrive TankSub, LimelightSub LimeSub) {
+  private PIDController CenterPIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
+  private PIDController DisteancePIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
+  public LimelightDriveCom(SwerveSubSystem SwerveSub, LimelightSub LimeSub) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_TankSub = TankSub;
+    m_SwerveSub = SwerveSub;
     m_LimelightSub = LimeSub;
 
-    addRequirements(m_TankSub);
+    addRequirements(SwerveSub);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_TankSub.setMotors(0, 0);
+    CenterPIDCon.setSetpoint(0);
+    CenterPIDCon.setTolerance(.5);
+    DisteancePIDCon.setSetpoint(Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()]);
+    DisteancePIDCon.setTolerance(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (m_LimelightSub.getTarget() == -1) {
-      m_TankSub.setMotors(0, 0);
+      m_SwerveSub.drive(0, 0, 0);
       return;
     }
     try {
-      DisteanceToGo = m_LimelightSub.distenceFromTarget - Constants.targetDistence[m_LimelightSub.getTarget()];
-    SmartDashboard.putNumber("distence to go", DisteanceToGo);
-    double inverter = Math.signum(DisteanceToGo);
-    m_TankSub.setMotors(Constants.DriveSpeed * inverter, Constants.DriveSpeed * inverter);
+      DisteanceToGo = m_LimelightSub.distenceFromTarget - Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()];
+      SmartDashboard.putNumber("distence to go", DisteanceToGo);
+      double inverter = Math.signum(DisteanceToGo);
+      m_SwerveSub.drive(CenterPIDCon.calculate(m_LimelightSub.angleFromCenter()), 
+        DisteancePIDCon.calculate(DisteanceToGo) * inverter, 
+        Constants.LimelightConstants.targetAngle[m_LimelightSub.getTarget()]);
     } catch (Exception e) {
       // TODO: handle exception
     }
@@ -61,7 +67,7 @@ public class LimelightDriveCom extends Command {
   @Override
   public void end(boolean interrupted) 
   {
-    m_TankSub.setMotors(0, 0);
+    m_SwerveSub.drive(0, 0, 0);
   }
 
   // Returns true when the command should end.
