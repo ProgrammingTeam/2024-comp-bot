@@ -7,6 +7,11 @@ package frc.robot;
 import com.revrobotics.MotorFeedbackSensor;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerveCommand;
+import frc.robot.commands.LimelightDriveCom;
+import frc.robot.commands.LineUpCom;
+import frc.robot.commands.NothingDrive;
+import frc.robot.subsystems.LimelightSub;
+import frc.robot.subsystems.tankDrive;
 import frc.robot.subsystems.SwerveSubSystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -17,9 +22,10 @@ import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
-
 public class RobotContainer {
-
+  private final tankDrive m_TankDriveSub = new tankDrive();
+  private final LimelightSub m_LimelightSub = new LimelightSub();
+  // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
       SwerveDrive swerveDrive;
@@ -41,8 +47,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    
-    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_TankDriveSub.setDefaultCommand(new NothingDrive(m_TankDriveSub));
+    m_driverController.b().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub));
+    m_driverController.x().whileTrue(new LimelightDriveCom(m_TankDriveSub, m_LimelightSub));
+    m_driverController.a().whileTrue(new LineUpCom(m_TankDriveSub, m_LimelightSub));
   }
 
   public Command getAutonomousCommand() {
