@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GroundIntakeSub extends SubsystemBase {
-  private final CANSparkMax LowerGIntakeMotor = new CANSparkMax(Constants.GroundIntake.LowGIntakeID, MotorType.kBrushless);
-  private final CANSparkMax UpperGIntakeMotor = new CANSparkMax(Constants.GroundIntake.UpGIntakeID, MotorType.kBrushless);
+  private final CANSparkMax GroundIntakeMotor = new CANSparkMax(Constants.GroundIntake.GIntakeID, MotorType.kBrushless);
  
   /** Creates a new GroundIntakeSub. */
   public GroundIntakeSub() {}
@@ -21,8 +20,7 @@ public class GroundIntakeSub extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void setMotors(double UpperMotorSpeed, double LowerMotorSpeed) {
-    LowerGIntakeMotor.set(LowerMotorSpeed);
-    UpperGIntakeMotor.set(UpperMotorSpeed);
+  public void setMotors(double MotorSpeed) {
+    GroundIntakeMotor.set(MotorSpeed);
   }
 }

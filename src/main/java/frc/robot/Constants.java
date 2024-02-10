@@ -17,8 +17,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class GroundIntake{
-    public static final int LowGIntakeID = 0;
-    public static final int UpGIntakeID = 0;
+    public static final int GIntakeID = 0;
   }
   public static final int LeftClimbMotorID = 0;
 public static final int RightClimbMotorID = 0;
