@@ -10,8 +10,17 @@ import frc.robot.commands.TeleopSwerveCommand;
 import frc.robot.commands.LimelightDriveCom;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.commands.Autos;
+import frc.robot.commands.ClimbCom;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GroundIntakeCom;
+import frc.robot.subsystems.ClimbSub;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GroundIntakeSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.io.File;
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.parser.SwerveParser;
@@ -21,30 +30,46 @@ import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
   private final LimelightSub m_LimelightSub = new LimelightSub();
+  // The robot's subsystems and commands are defined here...
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
+  private final ClimbSub m_ClimbSub = new ClimbSub(); // Hello! I wasn't looking when someone was typing
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-      SwerveDrive swerveDrive;
-      SwerveSubSystem swerveSubSystem;
-      TeleopSwerveCommand swerveCommand;
+  public final CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.kDriverControllerPort);
+  SwerveDrive swerveDrive;
+  SwerveSubSystem swerveSubSystem;
+  TeleopSwerveCommand swerveCommand;
 
-    public RobotContainer() {
+  public RobotContainer() {
     try {
       double maximumSpeed = Units.feetToMeters(4.5);
-      File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
+      File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
       swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
     } catch (Exception e) {
-      //  handled exception
+      // handled exception
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
-      swerveSubSystem.setDefaultCommand(swerveCommand);
+    swerveSubSystem.setDefaultCommand(swerveCommand);
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.b().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
-    m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    // m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem,
+    // m_LimelightSub));
+
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
+
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
+    // pressed,
+    // cancelling on release.
+    m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0));
+    m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
+    m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
   }
 
   public Command getAutonomousCommand() {
