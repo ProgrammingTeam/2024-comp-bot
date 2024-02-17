@@ -13,21 +13,22 @@ import frc.robot.Constants;
 public class ClimbSub extends SubsystemBase {
   private final CANSparkMax LeftClimbMotor = new CANSparkMax(Constants.LeftClimbMotorID, MotorType.kBrushless);
   private final CANSparkMax RightClimbMotor = new CANSparkMax(Constants.RightClimbMotorID, MotorType.kBrushless);
-  
-  
+
   /** Creates a new ClimbSub. */
   public ClimbSub() {
-    LeftClimbMotor.getAbsoluteEncoder();
+    LeftClimbMotor.getEncoder();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void setMotors(double ClimbSpeed) {
     LeftClimbMotor.set(ClimbSpeed);
     RightClimbMotor.follow(LeftClimbMotor);
   }
+
   public double EncoderValue() {
     return LeftClimbMotor.get();
   }

@@ -12,14 +12,16 @@ import frc.robot.Constants;
 
 public class GroundIntakeSub extends SubsystemBase {
   private final CANSparkMax GroundIntakeMotor = new CANSparkMax(Constants.GroundIntake.GIntakeID, MotorType.kBrushless);
- 
+
   /** Creates a new GroundIntakeSub. */
-  public GroundIntakeSub() {}
+  public GroundIntakeSub() {
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void setMotors(double MotorSpeed) {
     GroundIntakeMotor.set(MotorSpeed);
   }

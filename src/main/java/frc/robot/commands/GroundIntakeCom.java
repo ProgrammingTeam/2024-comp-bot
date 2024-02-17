@@ -10,10 +10,11 @@ import frc.robot.subsystems.GroundIntakeSub;
 public class GroundIntakeCom extends Command {
   private final GroundIntakeSub m_GroundIntakeSub;
   private final double m_MotorSpeed;
+
   /** Creates a new GroundIntakeCom. */
   public GroundIntakeCom(GroundIntakeSub GIntakeSub, double Speed) {
     m_GroundIntakeSub = GIntakeSub;
-    m_MotorSpeed = Speed; 
+    m_MotorSpeed = Speed;
     addRequirements(m_GroundIntakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -32,7 +33,8 @@ public class GroundIntakeCom extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
