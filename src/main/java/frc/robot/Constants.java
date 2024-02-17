@@ -16,6 +16,8 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int LeftJoysticPort = 1;
+    public static final int RighttJoysticPort = 2;
   }
 
   public static class LimelightConstants {
@@ -47,6 +49,17 @@ public final class Constants {
 
   public static class GroundIntake {
     public static final int GIntakeID = 0;
+  }
+
+  public static class ShooterConstants {
+    public static final double ExteriorShooterSpeed = 0;
+    public static final double InteriorShooterSpeed = 0;
+    public static final int IntakeShooterSpeed = 0;
+
+    public static final int lowerShooterID = 0;
+    public static final int upperShooterID = 0;
+
+    public static final int IntakeLimiterSwitch = 0;
   }
 
   public static final int LeftClimbMotorID = 0;

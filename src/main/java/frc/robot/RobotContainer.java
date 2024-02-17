@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import java.io.File;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.util.Units;
@@ -29,6 +30,9 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
+  public final Joystick m_LeftJoystick = new Joystick(OperatorConstants.LeftJoysticPort);
+  public final Joystick m_RighttJoystick = new Joystick(OperatorConstants.RighttJoysticPort);
+
   SwerveDrive swerveDrive;
   SwerveSubSystem swerveSubSystem;
   TeleopSwerveCommand swerveCommand;
@@ -49,12 +53,6 @@ public class RobotContainer {
 
   private void configureBindings() {
     m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
-    // m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem,
-    // m_LimelightSub));
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
     m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0));
     m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
     m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
