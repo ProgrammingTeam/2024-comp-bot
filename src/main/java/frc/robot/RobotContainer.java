@@ -35,23 +35,29 @@ import swervelib.SwerveDrive;
 import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
+  // Subsystems
   private final LimelightSub m_LimelightSub = new LimelightSub();
-  // The robot's subsystems and commands are defined here...
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
-  private final ClimbSub m_ClimbSub = new ClimbSub(); // Hello! I wasn't looking when someone was typing
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  private final ClimbSub m_ClimbSub = new ClimbSub(); 
+  // Hello! I wasn't looking when someone was typing
+
+  // Controllers & Joysticks & chooser in SmartDashboard 
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   public final Joystick m_LeftJoystick = new Joystick(OperatorConstants.LeftJoysticPort);
   public final Joystick m_RighttJoystick = new Joystick(OperatorConstants.RighttJoysticPort);
   private final SendableChooser<AutoSelecter> autoChooser = new SendableChooser<>();
+
+  // Swerve subsystem, command, and shooter subsystem
   SwerveDrive swerveDrive;
   private final SwerveSubSystem swerveSubSystem;
   private final TeleopSwerveCommand swerveCommand;
   private final ShooterSub m_ShooterSub = new ShooterSub();
+
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
   }
+
   public RobotContainer() {
     try {
       double maximumSpeed = Units.feetToMeters(4.5);
@@ -68,7 +74,7 @@ public class RobotContainer {
     autoChooser.addOption("Sourse shoot auto", AutoSelecter.SourseSpeakerAuto);
     autoChooser.addOption("Amp shoot auto", AutoSelecter.AmpSpeakerAuto);
     SmartDashboard.putData(autoChooser);
-configureBindings();
+    configureBindings();
   }
 
   private void configureBindings() {
@@ -93,7 +99,6 @@ configureBindings();
         return new DoNothing();
       default:
         return new DoNothing();
-
     }
   }
 }

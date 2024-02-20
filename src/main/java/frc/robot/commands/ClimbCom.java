@@ -18,7 +18,6 @@ public class ClimbCom extends Command {
     m_ClimbSub = Climb;
     m_height = Height;
     addRequirements(m_ClimbSub);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +34,7 @@ public class ClimbCom extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_ClimbSub.setMotors(0);
   }
 
   // Returns true when the command should end.
