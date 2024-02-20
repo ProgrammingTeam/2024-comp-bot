@@ -5,20 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.subsystems.ClimbSub;
 
-public class TeleopSwerveCommand extends Command {
-  SwerveSubSystem m_swerveSubSystem;
-  CommandXboxController xboxController;
-    
-  
-  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandXboxController controller) {
-      m_swerveSubSystem = swerveSubSystem;
-      xboxController = controller;
-
-      addRequirements(m_swerveSubSystem);
-    }
+public class ClimbCom extends Command {
+  private final ClimbSub m_ClimbSub;
+  private final double m_ClimbSpeed;
+  private final double m_height;
+  /** Creates a new ClimbCom. */
+  public ClimbCom(ClimbSub Climb, double climbSpeed, double Height) {
+    m_ClimbSpeed = climbSpeed;
+    m_ClimbSub = Climb;
+    m_height = Height;
+    addRequirements(m_ClimbSub);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -27,7 +27,7 @@ public class TeleopSwerveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(xboxController.getLeftY(), xboxController.getLeftX(), xboxController.getRightX());
+    m_ClimbSub.setMotors(m_ClimbSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +37,6 @@ public class TeleopSwerveCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_ClimbSub.EncoderValue() >= m_height -0.5 && m_ClimbSub.EncoderValue() <= m_height + 0.5;
   }
 }
