@@ -29,7 +29,7 @@ public class RobotContainer {
   private final LimelightSub m_LimelightSub = new LimelightSub();
   // The robot's subsystems and commands are defined here...
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
-  private final ClimbSub m_ClimbSub = new ClimbSub(); // Hello! I wasn't looking when someone was typing
+  private final ClimbSub m_ClimbSub = new ClimbSub();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
