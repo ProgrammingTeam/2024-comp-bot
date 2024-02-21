@@ -11,22 +11,16 @@ import frc.robot.subsystems.SwerveSubSystem;
 
 public class AutoDrive extends Command {
   SwerveSubSystem swerveSub;
-  int time;
-  boolean isforward;
+  double time;
   double rot;
-  boolean isMet;
-  boolean isLeft;
   Timer timer;
   Timer timer2;
   double currentRot;
 
-  public AutoDrive(SwerveSubSystem m_swervesub, int seconds, boolean forward, double rotationDegree,
-      boolean leftOrRight) {
+  public AutoDrive(SwerveSubSystem m_swervesub, double seconds, double rotationDegrees) {
     swerveSub = m_swervesub;
     time = seconds;
-    isforward = forward;
-    isLeft = leftOrRight;
-    rot = rotationDegree;
+    rot = rotationDegrees;
 
     addRequirements(swerveSub);
   }

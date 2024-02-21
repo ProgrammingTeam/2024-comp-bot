@@ -22,6 +22,7 @@ public class AutoSwerveCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_swerveSubSystem.drive(0, 0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +35,7 @@ public class AutoSwerveCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_swerveSubSystem.drive(0, 0, 0);
   }
 
   // Returns true when the command should end.

@@ -13,8 +13,7 @@ import swervelib.encoders.SparkMaxEncoderSwerve;
 public class SwerveSubSystem extends SubsystemBase {
   /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
-  SparkMaxEncoderSwerve nullEncoder = new SparkMaxEncoderSwerve(null, 0);
-  public double encoderPoll;
+  double currentYaw;
 
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
@@ -27,6 +26,6 @@ public class SwerveSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    encoderPoll = nullEncoder.getAbsolutePosition();
+    currentYaw = m_swerveDrive.getYaw().getDegrees();
   }
 }
