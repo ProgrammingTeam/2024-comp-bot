@@ -49,10 +49,10 @@ public class AutoDrive extends Command {
       swerveSub.drive(0, 0, Constants.autonomousConstants.RotationSpeed);
     } else {
       timer.start();
-      if (isforward == true || timer.get() <= time) {
+      if (isforward == true && timer.get() <= time) {
         swerveSub.drive(0, Constants.autonomousConstants.FrontOrBackSpeed, 0);
         isMet = false;
-      } else if (isforward == false || timer.get() <= time) {
+      } else if (isforward == false && timer.get() <= time) {
         swerveSub.drive(0, -Constants.autonomousConstants.FrontOrBackSpeed, 0);
         isMet = false;
       } else {
