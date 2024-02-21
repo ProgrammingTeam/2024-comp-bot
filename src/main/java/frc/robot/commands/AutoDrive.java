@@ -15,13 +15,18 @@ public class AutoDrive extends Command {
   boolean isforward;
   double rot;
   boolean isMet;
+  boolean isLeft;
   Timer timer;
+  Timer timer2;
+  double currentRot;
 
-  public AutoDrive(SwerveSubSystem m_swervesub, int seconds, boolean forward, double rotationSpeed) {
+  public AutoDrive(SwerveSubSystem m_swervesub, int seconds, boolean forward, double rotationDegree,
+      boolean leftOrRight) {
     swerveSub = m_swervesub;
     time = seconds;
     isforward = forward;
-    rot = rotationSpeed;
+    isLeft = leftOrRight;
+    rot = rotationDegree;
 
     addRequirements(swerveSub);
   }
@@ -29,22 +34,47 @@ public class AutoDrive extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
+    timer.reset();
+    timer2.reset();
     swerveSub.drive(0, 0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (isforward == true | timer.get() <= time) {
-      swerveSub.drive(0, Constants.autonomousConstants.FrontOrBackSpeed, rot);
-      isMet = false;
-    } else if (isforward == false | timer.get() <= time) {
-      swerveSub.drive(0, -Constants.autonomousConstants.FrontOrBackSpeed, rot);
-      isMet = false;
+    // First rotate until the degree is met, then start a timer and move until timer
+    // reaches set limit.
+    currentRot = swerveSub.encoderPoll;
+    if (currentRot <= rot) {
+      swerveSub.drive(0, 0, Constants.autonomousConstants.RotationSpeed);
     } else {
-      swerveSub.drive(0, 0, 0);
-      isMet = true;
+      timer.start();
+      if (isforward == true | timer.get() <= time) {
+        swerveSub.drive(0, Constants.autonomousConstants.FrontOrBackSpeed, 0);
+        isMet = false;
+      } else if (isforward == false | timer.get() <= time) {
+        swerveSub.drive(0, -Constants.autonomousConstants.FrontOrBackSpeed, 0);
+        isMet = false;
+      } else {
+        swerveSub.drive(0, 0, 0);
+        isMet = false;
+      }
+      timer2.start();
+      if (isLeft == true) {
+        if (timer2.get() <= time) {
+          swerveSub.drive(Constants.autonomousConstants.LeftToRightSpeed, 0, 0);
+        } else {
+          swerveSub.drive(0, 0, 0);
+          isMet = true;
+        }
+      } else if (isLeft == false) {
+        if (timer2.get() <= time) {
+          swerveSub.drive(-Constants.autonomousConstants.LeftToRightSpeed, 0, 0);
+        } else {
+          swerveSub.drive(0, 0, 0);
+          isMet = true;
+        }
+      }
     }
   }
 

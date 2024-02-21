@@ -15,7 +15,7 @@ public class DriveAutonomous extends SequentialCommandGroup {
   /** Creates a new DriveAutonomous. */
   public DriveAutonomous(SwerveSubSystem swerve) {
     addCommands(
-    new AutoDrive(swerve, 3, true, 0.25)
+    new AutoDrive(swerve, 3, true, 90, true)
     );
   }
 }

@@ -67,5 +67,7 @@ public final class Constants {
 
   public final class autonomousConstants {
     public static final double FrontOrBackSpeed = 0.25;
+    public static final double RotationSpeed = 0.15;
+    public static final double LeftToRightSpeed = 0.20;
   }
 }

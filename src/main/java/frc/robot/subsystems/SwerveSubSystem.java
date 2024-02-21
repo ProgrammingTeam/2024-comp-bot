@@ -8,10 +8,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
+import swervelib.encoders.SparkMaxEncoderSwerve;
 
 public class SwerveSubSystem extends SubsystemBase {
   /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
+  SparkMaxEncoderSwerve nullEncoder = new SparkMaxEncoderSwerve(null, 0);
+  public double encoderPoll;
 
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
@@ -24,9 +27,6 @@ public class SwerveSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-  }
-
-  public void getYaw() {
-  
+    encoderPoll = nullEncoder.getAbsolutePosition();
   }
 }
