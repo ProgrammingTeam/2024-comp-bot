@@ -64,4 +64,8 @@ public final class Constants {
 
   public static final int LeftClimbMotorID = 0;
   public static final int RightClimbMotorID = 0;
+
+  public final class autonomousConstants {
+    public static final double FrontOrBackSpeed = 0.25;
+  }
 }
