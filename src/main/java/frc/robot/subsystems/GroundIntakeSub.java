@@ -14,8 +14,6 @@ import frc.robot.Constants;
 public class GroundIntakeSub extends SubsystemBase {
   private final CANSparkMax GroundIntakeMotor = new CANSparkMax(Constants.GroundIntake.GIntakeID, MotorType.kBrushless);
 
-  private final DigitalInput 
-
   /** Creates a new GroundIntakeSub. */
   public GroundIntakeSub() {
   }
