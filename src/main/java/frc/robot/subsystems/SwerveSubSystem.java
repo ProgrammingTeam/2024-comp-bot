@@ -11,13 +11,18 @@ import swervelib.SwerveDrive;
 public class SwerveSubSystem extends SubsystemBase {
   /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
+
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
   }
 
-  public void drive(double Xaxis, double YAxis, double rotation){
-    m_swerveDrive.drive(new Translation2d(Xaxis,YAxis),
-      rotation, true, false);
+  public void drive(double Xaxis, double YAxis, double rotation) {
+    m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
+        rotation, true, false);
+  }
+
+  public void resetGyro() {
+    m_swerveDrive.zeroGyro();
   }
 
   @Override

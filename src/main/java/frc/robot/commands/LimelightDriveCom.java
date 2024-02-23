@@ -7,10 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-
-import org.opencv.core.Mat;
-
-import edu.wpi.first.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.SwerveSubSystem;
@@ -23,6 +19,7 @@ public class LimelightDriveCom extends Command {
   private double DisteanceToGo;
   private PIDController CenterPIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
   private PIDController DisteancePIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
+
   public LimelightDriveCom(SwerveSubSystem SwerveSub, LimelightSub LimeSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_SwerveSub = SwerveSub;
@@ -48,25 +45,26 @@ public class LimelightDriveCom extends Command {
     }
     try {
       DisteancePIDCon.setSetpoint(Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()]);
-      DisteanceToGo = m_LimelightSub.distenceFromTarget - Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()];
+      DisteanceToGo = m_LimelightSub.distenceFromTarget
+          - Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()];
       SmartDashboard.putNumber("distence to go", DisteanceToGo);
       double inverter = Math.signum(DisteanceToGo);
-      m_SwerveSub.drive(CenterPIDCon.calculate(m_LimelightSub.angleFromCenter()), 
-        DisteancePIDCon.calculate(DisteanceToGo) * inverter, 
-        Constants.LimelightConstants.targetAngle[m_LimelightSub.getTarget()]);
+      m_SwerveSub.drive(CenterPIDCon.calculate(m_LimelightSub.angleFromCenter()),
+          DisteancePIDCon.calculate(DisteanceToGo) * inverter,
+          Constants.LimelightConstants.targetAngle[m_LimelightSub.getTarget()]);
     } catch (Exception e) {
       // TODO: handle exception
     }
-    
-    
-           
-  //  SmartDashboard.putNumber("Absolute motor speed", MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive, Constants.highDrive));
+
+    // SmartDashboard.putNumber("Absolute motor speed",
+    // MathUtil.clamp(Math.abs(PIDCon.calculate(DisteanceToGo)), Constants.lowDrive,
+    // Constants.highDrive));
     isFinished();
   }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
-  {
+  public void end(boolean interrupted) {
     m_SwerveSub.drive(0, 0, 0);
   }
 
