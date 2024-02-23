@@ -49,6 +49,14 @@ public final class Constants {
     public static final int GIntakeID = 0;
   }
 
-  public static final int LeftClimbMotorID = 0;
-  public static final int RightClimbMotorID = 0;
+  public static class Climb {
+    public static final int LeftClimbMotorID = 0;
+    public static final int RightClimbMotorID = 0;
+
+    public static final double TopEncoderPosition = 0;
+    public static final double BottomEncoderPosition = 0;
+    public static final double ClimberEncoderDeadban = 0;
+
+  }
+
 }

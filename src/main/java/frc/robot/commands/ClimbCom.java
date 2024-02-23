@@ -4,39 +4,58 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.ClimbSub;
 
 public class ClimbCom extends Command {
   private final ClimbSub m_ClimbSub;
   private final double m_ClimbSpeed;
-  private final double m_height;
+  private final double TargetEncoderValue;
+
   /** Creates a new ClimbCom. */
   public ClimbCom(ClimbSub Climb, double climbSpeed, double Height) {
     m_ClimbSpeed = climbSpeed;
     m_ClimbSub = Climb;
-    m_height = Height;
     addRequirements(m_ClimbSub);
+
+    TargetEncoderValue = MathUtil.interpolate(Constants.Climb.BottomEncoderPosition, Constants.Climb.TopEncoderPosition,
+        Height);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_ClimbSub.setMotors(m_ClimbSpeed);
+
+    if (m_ClimbSub.EncoderValue() >= TargetEncoderValue) {
+
+    } else if (m_ClimbSub.EncoderValue() <= TargetEncoderValue) {
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_ClimbSub.EncoderValue() >= m_height -0.5 && m_ClimbSub.EncoderValue() <= m_height + 0.5;
+    if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <= Constants.Climb.ClimberEncoderDeadban) {
+      return true;
+    }
+
+    else {
+      return false;
+    }
   }
 }

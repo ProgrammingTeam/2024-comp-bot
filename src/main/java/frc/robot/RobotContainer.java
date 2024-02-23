@@ -57,8 +57,8 @@ public class RobotContainer {
     // m_LimelightSub));
 
     m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0));
-    m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
-    m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
+    m_driverController.x().onTrue(new ClimbCom(m_ClimbSub, .25, 0));
+    m_driverController.a().onTrue(new ClimbCom(m_ClimbSub, .25, 1));
   }
 
   public Command getAutonomousCommand() {
