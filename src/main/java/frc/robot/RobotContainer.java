@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.MotorFeedbackSensor;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerveCommand;
 import frc.robot.commands.LimelightDriveCom;
@@ -15,14 +14,13 @@ import frc.robot.commands.GroundIntakeCom;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.GroundIntakeSub;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.io.File;
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
@@ -53,10 +51,16 @@ public class RobotContainer {
 
   private void configureBindings() {
     m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    m_driverController.back().onTrue(new InstantCommand(swerveSubSystem::resetGyro));
     // m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem,
     // m_LimelightSub));
 
-    m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0));
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
+    // pressed,
+    // cancelling on release.
+    m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.2));
     m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
     m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
   }

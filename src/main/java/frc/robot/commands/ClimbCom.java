@@ -11,6 +11,7 @@ public class ClimbCom extends Command {
   private final ClimbSub m_ClimbSub;
   private final double m_ClimbSpeed;
   private final double m_height;
+
   /** Creates a new ClimbCom. */
   public ClimbCom(ClimbSub Climb, double climbSpeed, double Height) {
     m_ClimbSpeed = climbSpeed;
@@ -22,7 +23,8 @@ public class ClimbCom extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -32,11 +34,12 @@ public class ClimbCom extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_ClimbSub.EncoderValue() >= m_height -0.5 && m_ClimbSub.EncoderValue() <= m_height + 0.5;
+    return m_ClimbSub.EncoderValue() >= m_height - 0.5 && m_ClimbSub.EncoderValue() <= m_height + 0.5;
   }
 }

@@ -30,9 +30,6 @@ public final class Constants {
 
     public static final double angleOffset = 0.5;
 
-    public static final int leftMotorID = 5;
-    public static final int rightMotorID = 6;
-
     public static final double kp = 0.002;
 
     public static final double lowDrive = 0.04;
@@ -46,9 +43,9 @@ public final class Constants {
   public static final double DriveSpeed = 0.07;
 
   public static class GroundIntake {
-    public static final int GIntakeID = 0;
+    public static final int GIntakeID = 11;
   }
 
-  public static final int LeftClimbMotorID = 0;
-  public static final int RightClimbMotorID = 0;
+  public static final int LeftClimbMotorID = 9;
+  public static final int RightClimbMotorID = 10;
 }
