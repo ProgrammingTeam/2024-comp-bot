@@ -52,16 +52,19 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double ExteriorShooterSpeed = 0;
-    public static final double InteriorShooterSpeed = 0;
-    public static final int IntakeShooterSpeed = 0;
+    public static final double ExteriorShooterSpeed = 1;
+    public static final double InteriorShooterSpeed = 1;
+    public static final double IntakeShooterSpeed = 0.5;
 
-    public static final int lowerShooterID = 0;
-    public static final int upperShooterID = 0;
+    public static final int lowerShooterID = 13;
+    public static final int upperShooterID = 12;
+  //public static final int SeccondUpperShooterID = 14;
 
     public static final int IntakeLimiterSwitch = 0;
   }
 
   public static final int LeftClimbMotorID = 0;
   public static final int RightClimbMotorID = 0;
+  public static final double AutoTurnSpeed = 0;
+public static final double OrientaionOffset = 0;
 }

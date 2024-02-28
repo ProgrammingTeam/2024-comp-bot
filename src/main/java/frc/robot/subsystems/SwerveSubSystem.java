@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
@@ -16,6 +17,10 @@ public class SwerveSubSystem extends SubsystemBase {
     m_swerveDrive = swerveDrive;
   }
 
+  public double getRobotOrientation() {
+    return m_swerveDrive.getYaw().getDegrees();
+  }
+  
   public void drive(double Xaxis, double YAxis, double rotation) {
     m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
         rotation, true, false);
