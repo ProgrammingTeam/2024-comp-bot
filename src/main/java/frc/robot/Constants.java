@@ -46,17 +46,29 @@ public final class Constants {
   public static final double DriveSpeed = 0.07;
 
   public static class GroundIntake {
-    public static final int GIntakeID = 0;
+    public static final int GIntakeID = 11;
   }
 
   public static class Climb {
-    public static final int LeftClimbMotorID = 0;
-    public static final int RightClimbMotorID = 0;
+    public static final int LeftClimbMotorID = 10;
+    public static final int RightClimbMotorID = 9;
 
-    public static final double TopEncoderPosition = 0;
+    public static final double TopEncoderPosition = -110;
     public static final double BottomEncoderPosition = 0;
     public static final double ClimberEncoderDeadban = 0;
 
+  }
+
+  public static class ShooterMech {
+    public static final int upperShooterID = 0;
+    public static final int lowerShooterID = 0;
+    public static final int IntakeLimiterSwitch = 0;
+  }
+
+  public static class MotorConstants {
+    public static final double ExteriorShooterSpeed = 1.0;
+    public static final double InteriorShooterSpeed = 0.75;
+    public static final double IntakeShooterSpeed = 0.20;
   }
 
 }

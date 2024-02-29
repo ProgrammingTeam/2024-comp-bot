@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -16,12 +17,11 @@ import frc.robot.commands.ClimbCom;
 public class ClimbSub extends SubsystemBase {
   private final CANSparkMax LeftClimbMotor = new CANSparkMax(Constants.Climb.LeftClimbMotorID, MotorType.kBrushless);
   private final CANSparkMax RightClimbMotor = new CANSparkMax(Constants.Climb.RightClimbMotorID, MotorType.kBrushless);
-  private final SparkAbsoluteEncoder PhysicalEncoderValue;
+  private final RelativeEncoder PhysicalEncoderValue;
 
   /** Creates a new ClimbSub. */
   public ClimbSub() {
-    PhysicalEncoderValue = LeftClimbMotor.getAbsoluteEncoder();
-    RightClimbMotor.follow(LeftClimbMotor);
+    PhysicalEncoderValue = LeftClimbMotor.getEncoder();
   }
 
   @Override
@@ -31,6 +31,7 @@ public class ClimbSub extends SubsystemBase {
 
   public void setMotors(double ClimbSpeed) {
     LeftClimbMotor.set(ClimbSpeed);
+    RightClimbMotor.set(ClimbSpeed);
   }
 
   public double EncoderValue() {
