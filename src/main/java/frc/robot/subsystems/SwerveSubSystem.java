@@ -12,7 +12,7 @@ import swervelib.SwerveDrive;
 public class SwerveSubSystem extends SubsystemBase {
   /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
-
+  public double metersPSec;
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
   }
@@ -28,6 +28,7 @@ public class SwerveSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+        m_swerveDrive.getFieldVelocity().vyMetersPerSecond = metersPSec;
     // This method will be called once per scheduler run
   }
 }

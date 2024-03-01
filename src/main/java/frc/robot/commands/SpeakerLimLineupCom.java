@@ -31,7 +31,7 @@ public class SpeakerLimLineupCom extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
+    if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
       m_SwerveSubSystem.drive(0, 0, Constants.AutoTurnSpeed);
     }
     else {
