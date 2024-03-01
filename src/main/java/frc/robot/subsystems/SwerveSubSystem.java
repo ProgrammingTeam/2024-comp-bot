@@ -26,6 +26,10 @@ public class SwerveSubSystem extends SubsystemBase {
         rotation, true, false);
   }
 
+  public void resetGyro() {
+    m_swerveDrive.zeroGyro();
+  }
+
   @Override
   public void periodic() {
         m_swerveDrive.getFieldVelocity().vyMetersPerSecond = metersPSec;
