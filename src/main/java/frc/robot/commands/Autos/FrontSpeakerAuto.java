@@ -28,16 +28,15 @@ public class FrontSpeakerAuto extends SequentialCommandGroup {
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             Commands.waitSeconds(1)),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.5, 0),
-            new GroundIntakeCom(m_GroundIntakeSub, .25),
-            Commands.waitSeconds(1)),
+            new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
+            new GroundIntakeCom(m_GroundIntakeSub, .25)),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.5, 0),
+            new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             Commands.waitSeconds(1)),
-        new AutoSwerveCommand(m_SwerveSub, 0.5, 0));
+        new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12));
   }
 
   

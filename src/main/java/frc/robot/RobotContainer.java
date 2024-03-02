@@ -94,10 +94,10 @@ configureBindings();
         return new FrontSpeakerAuto(m_ShooterSub, swerveSubSystem, m_GroundIntakeSub);
 
       case SourseSpeakerAuto:
-        return new SourseSpeakerAuto(m_ShooterSub, swerveSubSystem);
+        return new SourseSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
 
       case AmpSpeakerAuto:
-        return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem);
+        return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
 
       case DoNothing:
         return new DoNothing();
