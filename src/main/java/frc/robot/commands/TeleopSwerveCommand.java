@@ -5,17 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.subsystems.SwerveSubSystem;
 
 public class TeleopSwerveCommand extends Command {
   SwerveSubSystem m_swerveSubSystem;
-  CommandXboxController xboxController;
+  CommandJoystick m_LJoystick;
+  CommandJoystick m_RJoystick;
 
-  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandXboxController controller) {
+  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandJoystick LeftController,
+      CommandJoystick RightController) {
     m_swerveSubSystem = swerveSubSystem;
-    xboxController = controller;
-
+    m_LJoystick = LeftController;
+    m_RJoystick = RightController;
     addRequirements(m_swerveSubSystem);
   }
 
@@ -27,8 +29,8 @@ public class TeleopSwerveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(Math.pow(-xboxController.getLeftY(), 3), Math.pow(-xboxController.getLeftX(), 3),
-        Math.pow(-xboxController.getRightX(), 3));
+    m_swerveSubSystem.drive(Math.pow(-m_LJoystick.getRawAxis(0), 3), Math.pow(-m_LJoystick.getRawAxis(1), 3),
+        Math.pow(-m_RJoystick.getRawAxis(0), 3));
   }
 
   // Called once the command ends or is interrupted.

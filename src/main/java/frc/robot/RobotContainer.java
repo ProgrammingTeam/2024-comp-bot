@@ -51,7 +51,7 @@ public class RobotContainer {
       // handled exception
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
-    swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+    swerveCommand = new TeleopSwerveCommand(swerveSubSystem, leftJoystick, RightJoystick);
     // swerveSubSystem.setDefaultCommand(swerveCommand);
     m_ClimbSub.setDefaultCommand(new ManualClimbCom(m_ClimbSub, m_driverController));
     configureBindings();
