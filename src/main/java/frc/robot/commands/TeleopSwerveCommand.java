@@ -11,28 +11,30 @@ import frc.robot.subsystems.SwerveSubSystem;
 public class TeleopSwerveCommand extends Command {
   SwerveSubSystem m_swerveSubSystem;
   CommandXboxController xboxController;
-    
-  
-  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandXboxController controller) {
-      m_swerveSubSystem = swerveSubSystem;
-      xboxController = controller;
 
-      addRequirements(m_swerveSubSystem);
-    }
+  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandXboxController controller) {
+    m_swerveSubSystem = swerveSubSystem;
+    xboxController = controller;
+
+    addRequirements(m_swerveSubSystem);
+  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(xboxController.getLeftY(), xboxController.getLeftX(), xboxController.getRightX());
+    m_swerveSubSystem.drive(Math.pow(-xboxController.getLeftY(), 3), Math.pow(-xboxController.getLeftX(), 3),
+        Math.pow(-xboxController.getRightX(), 3));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

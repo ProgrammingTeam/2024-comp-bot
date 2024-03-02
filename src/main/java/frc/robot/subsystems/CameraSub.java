@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.cameraserver.CameraServer;
-public class CameraSub extends SubsystemBase { 
- 
+
+public class CameraSub extends SubsystemBase {
+
   /** Creates a new CameraSub. */
   public CameraSub() {
     CameraServer.startAutomaticCapture("Drive CAM", 0);
