@@ -5,36 +5,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.ClimbSub;
 
-public class ManualClimbCom extends Command {
-  private final ClimbSub ClimbSub;
-  private final CommandXboxController xboxController;
+public class ButtonClimber extends Command {
+  private final ClimbSub climbSub;
+  private double motorSpeeds;
 
-  public ManualClimbCom(ClimbSub manualClimbSub, CommandXboxController controller) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    ClimbSub = manualClimbSub;
-    xboxController = controller;
-    addRequirements(manualClimbSub);
+  public ButtonClimber(ClimbSub climbSub1, double MotorSpeed) {
+    climbSub = climbSub1;
+    motorSpeeds = MotorSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ClimbSub.setMotors(0, 0);
+    climbSub.setMotors(0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ClimbSub.setMotors(xboxController.getLeftY(), xboxController.getRightY());
+    climbSub.setMotors(motorSpeeds, motorSpeeds);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    ClimbSub.setMotors(0, 0);
+    climbSub.setMotors(0, 0);
   }
 
   // Returns true when the command should end.

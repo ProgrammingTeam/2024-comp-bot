@@ -29,9 +29,9 @@ public class ClimbSub extends SubsystemBase {
     SmartDashboard.putNumber("Encoder Value", EncoderValue());
   }
 
-  public void setMotors(double ClimbSpeed) {
-    LeftClimbMotor.set(ClimbSpeed);
-    RightClimbMotor.set(ClimbSpeed);
+  public void setMotors(double lClimbSpeed, double rClimbSpeed) {
+    LeftClimbMotor.set(lClimbSpeed);
+    RightClimbMotor.set(rClimbSpeed);
   }
 
   public double EncoderValue() {

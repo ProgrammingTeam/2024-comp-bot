@@ -32,7 +32,7 @@ public class ClimbCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_ClimbSub.setMotors(0);
+    m_ClimbSub.setMotors(0, 0);
     SmartDashboard.putNumber("Target climb", TargetEncoderValue);
   }
 
@@ -41,14 +41,15 @@ public class ClimbCom extends Command {
   public void execute() {
     TargetEncoderValue = MathUtil.interpolate(Constants.Climb.BottomEncoderPosition, Constants.Climb.TopEncoderPosition,
         (leftJoystick.getRawAxis(3) + 1) / -2);
-        if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <= Constants.Climb.ClimberEncoderDeadban) {
-          m_ClimbSub.setMotors(0);}
-        else if 
-        (m_ClimbSub.EncoderValue() >= TargetEncoderValue) {
-      m_ClimbSub.setMotors(m_ClimbSpeed);
+    if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <= Constants.Climb.ClimberEncoderDeadban) {
+      m_ClimbSub.setMotors(0, 0);
+    } else if (m_ClimbSub.EncoderValue() >= TargetEncoderValue) {
+      m_ClimbSub.setMotors(m_ClimbSpeed, m_ClimbSpeed);
     } else if (m_ClimbSub.EncoderValue() <= TargetEncoderValue) {
-      m_ClimbSub.setMotors(-m_ClimbSpeed);
-    } else { m_ClimbSub.setMotors(0);}
+      m_ClimbSub.setMotors(-m_ClimbSpeed, -m_ClimbSpeed);
+    } else {
+      m_ClimbSub.setMotors(0, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -59,14 +60,15 @@ public class ClimbCom extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <= Constants.Climb.ClimberEncoderDeadban) {
-    //   return true;
+    // if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <=
+    // Constants.Climb.ClimberEncoderDeadban) {
+    // return true;
     // }
 
     // else {
-    //   return false;
+    // return false;
     // }
-  // }
+    // }
     return false;
   }
 }

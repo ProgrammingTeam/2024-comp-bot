@@ -12,7 +12,8 @@ import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
-import frc.robot.commands.ClimbCom;
+import frc.robot.commands.ButtonClimber;
+import frc.robot.commands.*;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.GroundIntakeSub;
@@ -52,24 +53,28 @@ public class RobotContainer {
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
     // swerveSubSystem.setDefaultCommand(swerveCommand);
-    m_ClimbSub.setDefaultCommand(new ClimbCom(m_ClimbSub, .3, leftJoystick));
+    m_ClimbSub.setDefaultCommand(new ManualClimbCom(m_ClimbSub, m_driverController));
     configureBindings();
   }
 
   private void configureBindings() {
     // m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem,
     // m_LimelightSub));
+
     m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
     m_driverController.back().onTrue(new InstantCommand(swerveSubSystem::resetGyro));
-    // m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem,
-    // m_LimelightSub));
-
     m_driverController.y().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
-    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0));
-    // m_driverController.x().onTrue(new ClimbCom(m_ClimbSub, .3, leftJoystick));
-    // m_driverController.a().onTrue(new ClimbCom(m_ClimbSub, .3, leftJoystick));
+    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4));
+    leftJoystick.button(2).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
+    leftJoystick.button(1).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4));
+    leftJoystick.button(0).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    RightJoystick.button(2).onTrue(new InstantCommand(swerveSubSystem::resetGyro));
+    RightJoystick.button(1).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    RightJoystick.button(0).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    RightJoystick.button(7).whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
+    RightJoystick.button(13).whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
   }
 
   public Command getAutonomousCommand() {
