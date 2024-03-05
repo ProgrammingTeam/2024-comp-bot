@@ -20,9 +20,17 @@ public class SwerveSubSystem extends SubsystemBase {
     m_swerveDrive = swerveDrive;
   }
 
+  public double getRobotOrientation() {
+    return m_swerveDrive.getYaw().getDegrees();
+  }
+  
   public void drive(double Xaxis, double YAxis, double rotation) {
     m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
         rotation, true, false);
+  }
+
+  public void resetGyro() {
+    m_swerveDrive.zeroGyro();
   }
 
   @Override

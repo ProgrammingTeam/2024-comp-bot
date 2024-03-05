@@ -32,9 +32,6 @@ public final class Constants {
 
     public static final double angleOffset = 0.5;
 
-    public static final int leftMotorID = 5;
-    public static final int rightMotorID = 6;
-
     public static final double kp = 0.002;
 
     public static final double lowDrive = 0.04;
@@ -48,26 +45,24 @@ public final class Constants {
   public static final double DriveSpeed = 0.07;
 
   public static class GroundIntake {
-    public static final int GIntakeID = 0;
+    public static final int GIntakeID = 11;
   }
 
   public static class ShooterConstants {
-    public static final double ExteriorShooterSpeed = 0;
-    public static final double InteriorShooterSpeed = 0;
-    public static final int IntakeShooterSpeed = 0;
+    public static final double ExteriorShooterSpeed = 1;
+    public static final double InteriorShooterSpeed = 1;
+    public static final double IntakeShooterSpeed = 0.5;
 
-    public static final int lowerShooterID = 0;
-    public static final int upperShooterID = 0;
+    public static final int lowerShooterID = 13;
+    public static final int upperShooterID = 12;
+  //public static final int SeccondUpperShooterID = 14;
 
     public static final int IntakeLimiterSwitch = 0;
   }
 
-  public static final int LeftClimbMotorID = 0;
-  public static final int RightClimbMotorID = 0;
-
-  public final class autonomousConstants {
-    public static final double FrontOrBackSpeed = 0.25;
-    public static final double RotationSpeed = 0.15;
-    public static final double LeftToRightSpeed = 0.20;
-  }
+  public static final double AutoTurnSpeed = 0;
+  public static final double OrientaionOffset = 0;
+  public static final int LeftClimbMotorID = 9;
+  public static final int RightClimbMotorID = 10;
+public static final double DefaultShootVelocity = 0;
 }

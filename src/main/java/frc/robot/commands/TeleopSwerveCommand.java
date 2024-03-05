@@ -27,7 +27,8 @@ public class TeleopSwerveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(xboxController.getLeftY(), xboxController.getLeftX(), xboxController.getRightX());
+    m_swerveSubSystem.drive(Math.pow(-xboxController.getLeftY(), 3), Math.pow(-xboxController.getLeftX(), 3),
+        Math.pow(-xboxController.getRightX(), 3));
   }
 
   // Called once the command ends or is interrupted.

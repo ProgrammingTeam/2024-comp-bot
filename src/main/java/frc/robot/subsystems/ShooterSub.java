@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
@@ -15,10 +16,12 @@ import frc.robot.Constants;
 public class ShooterSub extends SubsystemBase {
   CANSparkMax upperShooter = new CANSparkMax(Constants.ShooterConstants.upperShooterID, MotorType.kBrushless);
   CANSparkMax lowerShooter = new CANSparkMax(Constants.ShooterConstants.lowerShooterID, MotorType.kBrushless);
+  RelativeEncoder encoder;
   DigitalInput IntakeLimiterSwitch = new DigitalInput(Constants.ShooterConstants.IntakeLimiterSwitch);
 
   /** Creates a new LaunchSub. */
   public ShooterSub() {
+    encoder = upperShooter.getEncoder();
   }
 
   public void setLaunchMotors(double lowerShooterSpeed, double upperShooterSpeed) {
@@ -34,5 +37,8 @@ public class ShooterSub extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public double Velocity() {
+    return encoder.getVelocity();
   }
 }
