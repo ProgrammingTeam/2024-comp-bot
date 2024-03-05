@@ -14,6 +14,7 @@ public class SwerveSubSystem extends SubsystemBase {
   /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
   double currentYaw;
+  public double metersPSec;
 
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
@@ -27,5 +28,6 @@ public class SwerveSubSystem extends SubsystemBase {
   @Override
   public void periodic() {
     currentYaw = m_swerveDrive.getYaw().getDegrees();
+    metersPSec = m_swerveDrive.getFieldVelocity().vxMetersPerSecond;
   }
 }

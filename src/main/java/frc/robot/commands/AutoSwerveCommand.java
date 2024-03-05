@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubSystem;
 
@@ -11,11 +13,14 @@ public class AutoSwerveCommand extends Command {
   private final SwerveSubSystem m_swerveSubSystem;
   private final double m_YMovement;
   private final double m_XMovement;
+  private final double m_distanceNeeded;
+  private double distanceTraveled;
 
-  public AutoSwerveCommand(SwerveSubSystem swerveSubSystem, double YMove, double XMove) {
+  public AutoSwerveCommand(SwerveSubSystem swerveSubSystem, double YMove, double XMove, double distance) {
     m_swerveSubSystem = swerveSubSystem;
     m_YMovement = YMove;
     m_XMovement = XMove;
+    m_distanceNeeded = distance;
     addRequirements(m_swerveSubSystem);
   }
 
@@ -30,6 +35,7 @@ public class AutoSwerveCommand extends Command {
   public void execute() {
     // Rotation value subject to change
     m_swerveSubSystem.drive(m_YMovement, m_XMovement, 0);
+    distanceTraveled = Units.metersToInches(m_swerveSubSystem.metersPSec / 50);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +47,6 @@ public class AutoSwerveCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return MathUtil.isNear(m_distanceNeeded, distanceTraveled, 0.5);
   }
 }
