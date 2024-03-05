@@ -64,5 +64,6 @@ public final class Constants {
   public static final double OrientaionOffset = 0;
   public static final int LeftClimbMotorID = 9;
   public static final int RightClimbMotorID = 10;
-public static final double DefaultShootVelocity = 0;
+  public static final double DefaultShootVelocity = 0;
+  public static final double InchesTolerence = 0.5;
 }
