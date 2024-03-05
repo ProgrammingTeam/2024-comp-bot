@@ -27,6 +27,8 @@ public class AutoSwerveCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    distanceTraveled = 0;
+    m_swerveSubSystem.drive(0, 0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +36,7 @@ public class AutoSwerveCommand extends Command {
   public void execute() {
     // Rotation value subject to change
     m_swerveSubSystem.drive(m_YMovement, m_XMovement, 0);
+    distanceTraveled += Units.metersToInches(m_swerveSubSystem.metersPSec / 50);
   }
 
   // Called once the command ends or is interrupted.
