@@ -12,6 +12,7 @@ import frc.robot.commands.Autos.DoNothing;
 import frc.robot.commands.Autos.FrontSpeakerAuto;
 import frc.robot.commands.Autos.SourseSpeakerAuto;
 import frc.robot.commands.LimelightDriveCom;
+import frc.robot.commands.ResetFieldRelativeCmd;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
@@ -90,6 +91,7 @@ public class RobotContainer {
     m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.2));
     m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
     m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
+    m_driverController.back().whileTrue(new ResetFieldRelativeCmd(swerveSubSystem));
   }
 
   public Command getAutonomousCommand() {
