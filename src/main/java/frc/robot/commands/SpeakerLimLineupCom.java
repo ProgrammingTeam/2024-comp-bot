@@ -32,14 +32,14 @@ public class SpeakerLimLineupCom extends Command {
   @Override
   public void execute() {
     if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
-      m_SwerveSubSystem.drive(0, 0, Constants.AutoTurnSpeed);
+      m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
     }
     else {
       if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) > 0) {
-        m_SwerveSubSystem.drive(0, 0, Constants.AutoTurnSpeed);
+        m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
       }
       else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
-        m_SwerveSubSystem.drive(0, 0, -Constants.AutoTurnSpeed);
+        m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
       }
       else {
         linedUp = true;

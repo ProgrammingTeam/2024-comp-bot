@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ShooterSub;
 
 public class ShootCmd extends Command {
@@ -26,7 +28,7 @@ public class ShootCmd extends Command {
   public ShootCmd(ShooterSub ShooterSystem, ShootModes Mode) {
     ShootSelection = Mode;
     Shooter = ShooterSystem;
-    FireVelocity = Constants.DefaultShootVelocity;
+    FireVelocity = Constants.ShooterConstants.DefaultShootVelocity;
     addRequirements(Shooter);
   }
 
@@ -41,31 +43,37 @@ public class ShootCmd extends Command {
   public void execute() {
     switch (ShootSelection) {
       case Shoot:
-        BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
-        TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        BottomMotor = MotorConstants.InteriorShooterSpeed;
+        TopMotor = MotorConstants.ExteriorShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Shooting");
         break;
 
       case Load:
-        BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
-        TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        BottomMotor = -MotorConstants.IntakeShooterSpeed;
+        TopMotor = -MotorConstants.IntakeShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Loading");
         break;
 
       case SpinUp:
         BottomMotor = 0;
-        TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        TopMotor = MotorConstants.ExteriorShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
       case AmpShot:
         BottomMotor = 0.16;
         TopMotor = 0.16;
+        SmartDashboard.putString("Current Shooter Function", "Amp Shot");
         break;
 
       case DONOTHING:
         BottomMotor = 0;
         TopMotor = 0;
+        SmartDashboard.putString("Current Shooter Function", "Idle");
         break;
+
       case SmartShoot:
-      if (Shooter.Velocity() <= FireVelocity) {
+        if (Shooter.Velocity() <= FireVelocity) {
           BottomMotor = 0;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;}
         else {
@@ -73,6 +81,7 @@ public class ShootCmd extends Command {
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         }
         break;
+
       default:
         BottomMotor = 0;
         TopMotor = 0;

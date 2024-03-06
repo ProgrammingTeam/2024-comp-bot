@@ -24,14 +24,14 @@ public class AutoNoteLineup extends Command {
   @Override
   public void initialize() {
     LinedUp = false;
-    finalOrientation = m_SwerveSubSystem.getRobotOrientation() - Constants.OrientaionOffset;
+    finalOrientation = m_SwerveSubSystem.getRobotOrientation() - Constants.AutoConstants.OrientaionOffset;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (!MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 1)) {
-      m_SwerveSubSystem.drive(0, 0, -Constants.AutoTurnSpeed);
+      m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
     }
     else {
       LinedUp = true;

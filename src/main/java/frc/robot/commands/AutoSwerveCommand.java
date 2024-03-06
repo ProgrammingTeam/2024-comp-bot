@@ -48,6 +48,6 @@ public class AutoSwerveCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return MathUtil.isNear(m_distanceNeeded, distanceTraveled, Constants.InchesTolerence);
+    return MathUtil.isNear(m_distanceNeeded, distanceTraveled, Constants.AutoConstants.InchesTolerence);
   }
 }

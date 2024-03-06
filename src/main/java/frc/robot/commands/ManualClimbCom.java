@@ -5,37 +5,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.subsystems.SwerveSubSystem;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.ClimbSub;
 
-public class TeleopSwerveCommand extends Command {
-  SwerveSubSystem m_swerveSubSystem;
-  CommandJoystick m_LJoystick;
-  CommandJoystick m_RJoystick;
+public class ManualClimbCom extends Command {
+  private final ClimbSub ClimbSub;
+  private final CommandXboxController xboxController;
 
-  public TeleopSwerveCommand(SwerveSubSystem swerveSubSystem, CommandJoystick LeftController,
-      CommandJoystick RightController) {
-    m_swerveSubSystem = swerveSubSystem;
-    m_LJoystick = LeftController;
-    m_RJoystick = RightController;
-    addRequirements(m_swerveSubSystem);
+  public ManualClimbCom(ClimbSub manualClimbSub, CommandXboxController controller) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    ClimbSub = manualClimbSub;
+    xboxController = controller;
+    addRequirements(manualClimbSub);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    ClimbSub.setMotors(0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(Math.pow(-m_LJoystick.getRawAxis(0), 3), Math.pow(-m_LJoystick.getRawAxis(1), 3),
-        Math.pow(-m_RJoystick.getRawAxis(0), 3));
+    ClimbSub.setMotors(xboxController.getLeftY(), xboxController.getRightY());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    ClimbSub.setMotors(0, 0);
   }
 
   // Returns true when the command should end.
