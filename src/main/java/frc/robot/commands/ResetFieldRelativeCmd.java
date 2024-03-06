@@ -35,6 +35,7 @@ public class ResetFieldRelativeCmd extends Command {
       isReset = true;
     } else {
       System.out.println("Gyro was already at 0");
+      isReset = true;
     }
   }
 
