@@ -65,4 +65,14 @@ public final class Constants {
   public static final int LeftClimbMotorID = 9;
   public static final int RightClimbMotorID = 10;
   public static final double DefaultShootVelocity = 0;
+
+  public static class sonicConstants {
+    public static final int LSonicPingPort = 1;
+    public static final int LSonicEchoPort = 2;
+    public static final int RSonicPingPort = 3;
+    public static final int RSonicEchoPort = 4;
+    public static final int AmountOfInFromObject = 5;
+    public static final double AutoMapSpeed = 0.25;
+  }
 }
+

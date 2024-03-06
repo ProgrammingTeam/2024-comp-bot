@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerveCommand;
+import frc.robot.commands.UltrasonicCmd;
 import frc.robot.commands.Autos.AmpSpeakerAuto;
 import frc.robot.commands.Autos.AutoSelecter;
 import frc.robot.commands.Autos.DoNothing;
@@ -16,6 +17,7 @@ import frc.robot.commands.ResetFieldRelativeCmd;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.subsystems.UltraSonicSub;
 import frc.robot.commands.ClimbCom;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.subsystems.ClimbSub;
@@ -41,6 +43,7 @@ public class RobotContainer {
   private final LimelightSub m_LimelightSub = new LimelightSub();
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
   private final ClimbSub m_ClimbSub = new ClimbSub();
+  private final UltraSonicSub m_UltraSonicSub = new UltraSonicSub();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
@@ -92,6 +95,7 @@ public class RobotContainer {
     m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
     m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
     m_driverController.back().whileTrue(new ResetFieldRelativeCmd(swerveSubSystem));
+    m_driverController.start().onTrue(new UltrasonicCmd(m_UltraSonicSub, swerveSubSystem, 5));
   }
 
   public Command getAutonomousCommand() {

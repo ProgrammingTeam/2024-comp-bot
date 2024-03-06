@@ -33,7 +33,7 @@ public class ResetFieldRelativeCmd extends Command {
       System.out.println("Reseting gyro");
       m_swerveSub.resetGyro();
       isReset = true;
-    } else {
+    } else if (currentRobotGyro == 0) {
       System.out.println("Gyro was already at 0");
       isReset = true;
     }
