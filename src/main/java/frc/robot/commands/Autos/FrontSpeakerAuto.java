@@ -18,26 +18,25 @@ import frc.robot.subsystems.SwerveSubSystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FrontSpeakerAuto extends SequentialCommandGroup {
-  /** Creates a new FrontSpeakerAuto. */
-  public FrontSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, GroundIntakeSub m_GroundIntakeSub) {
-    addCommands(
-        Commands.race(
-            new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
-            Commands.waitSeconds(1)),
-        Commands.race(
-            new ShootCmd(m_ShooterSub, ShootModes.Shoot),
-            Commands.waitSeconds(1)),
-        Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
-            new GroundIntakeCom(m_GroundIntakeSub, .25)),
-        Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
-            new ShootCmd(m_ShooterSub, ShootModes.SpinUp)),
-        Commands.race(
-            new ShootCmd(m_ShooterSub, ShootModes.Shoot),
-            Commands.waitSeconds(1)),
-        new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12));
-  }
+    /** Creates a new FrontSpeakerAuto. */
+    public FrontSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, GroundIntakeSub m_GroundIntakeSub) {
+        addCommands(
+                Commands.race(
+                        new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
+                        Commands.waitSeconds(1)),
+                Commands.race(
+                        new ShootCmd(m_ShooterSub, ShootModes.Shoot),
+                        Commands.waitSeconds(1)),
+                Commands.race(
+                        new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
+                        new GroundIntakeCom(m_GroundIntakeSub, .25)),
+                Commands.race(
+                        new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12),
+                        new ShootCmd(m_ShooterSub, ShootModes.SpinUp)),
+                Commands.race(
+                        new ShootCmd(m_ShooterSub, ShootModes.Shoot),
+                        Commands.waitSeconds(1)),
+                new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12));
+    }
 
-  
 }

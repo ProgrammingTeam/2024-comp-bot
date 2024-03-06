@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.Random;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,6 +45,7 @@ public class AutoSwerveCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_swerveSubSystem.drive(0, 0, 0);
+    System.out.println("AutoSwerveCommand was interrupted");
   }
 
   // Returns true when the command should end.

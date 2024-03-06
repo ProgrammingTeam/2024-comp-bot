@@ -14,6 +14,7 @@ public class SpeakerLimLineupCom extends Command {
   private final LimelightSub m_LimelightSub;
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean linedUp = false;
+
   /** Creates a new LimLineupCom. */
   public SpeakerLimLineupCom(LimelightSub LimSub, SwerveSubSystem SwerveSub) {
     m_LimelightSub = LimSub;
@@ -33,15 +34,12 @@ public class SpeakerLimLineupCom extends Command {
   public void execute() {
     if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
       m_SwerveSubSystem.drive(0, 0, Constants.AutoTurnSpeed);
-    }
-    else {
+    } else {
       if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) > 0) {
         m_SwerveSubSystem.drive(0, 0, Constants.AutoTurnSpeed);
-      }
-      else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
+      } else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
         m_SwerveSubSystem.drive(0, 0, -Constants.AutoTurnSpeed);
-      }
-      else {
+      } else {
         linedUp = true;
       }
     }
@@ -49,7 +47,8 @@ public class SpeakerLimLineupCom extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

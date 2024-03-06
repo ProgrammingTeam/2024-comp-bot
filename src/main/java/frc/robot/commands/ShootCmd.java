@@ -15,8 +15,7 @@ public class ShootCmd extends Command {
   double TopMotor;
   double FireVelocity;
 
-  public ShootCmd(ShooterSub sub, ShootModes mode, double rpmToFire)
-  {
+  public ShootCmd(ShooterSub sub, ShootModes mode, double rpmToFire) {
     Shooter = sub;
     ShootSelection = mode;
     FireVelocity = rpmToFire;
@@ -65,10 +64,10 @@ public class ShootCmd extends Command {
         TopMotor = 0;
         break;
       case SmartShoot:
-      if (Shooter.Velocity() <= FireVelocity) {
+        if (Shooter.Velocity() <= FireVelocity) {
           BottomMotor = 0;
-          TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;}
-        else {
+          TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        } else {
           BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         }
