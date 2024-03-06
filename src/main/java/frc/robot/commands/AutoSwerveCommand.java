@@ -37,7 +37,7 @@ public class AutoSwerveCommand extends Command {
   @Override
   public void execute() {
     // Rotation value subject to change
-    m_swerveSubSystem.drive(m_YMovement, m_XMovement, 0);
+    m_swerveSubSystem.drive(m_XMovement, m_YMovement, 0);
     distanceTraveled += Units.metersToInches(m_swerveSubSystem.metersPSec / 50);
   }
 
