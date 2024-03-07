@@ -38,7 +38,7 @@ public class AmpSpeakerAuto extends SequentialCommandGroup {
         new AutoNoteLineup(m_SwerveSub),
         Commands.race(
             new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
-            new GroundIntakeCom(m_GroundIntakeSub, 0.1)),
+            new GroundIntakeCom(m_GroundIntakeSub, 0.1, 0.1)),
         Commands.race(
             new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp)),

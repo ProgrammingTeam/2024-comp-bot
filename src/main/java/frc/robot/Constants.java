@@ -46,6 +46,9 @@ public final class Constants {
 
   public static class GroundIntake {
     public static final int GIntakeID = 11;
+
+    public static final int TopBeltIntakeID = 14;
+    public static final int BottomBeltIntakeID = 15;
   }
   
   public static class ShooterConstants {

@@ -9,12 +9,14 @@ import frc.robot.subsystems.GroundIntakeSub;
 
 public class GroundIntakeCom extends Command {
   private final GroundIntakeSub m_GroundIntakeSub;
-  private final double m_MotorSpeed;
+  private final double m_GroundSpeed;
+  private final double m_BeltSpeed;
 
   /** Creates a new GroundIntakeCom. */
-  public GroundIntakeCom(GroundIntakeSub GIntakeSub, double Speed) {
+  public GroundIntakeCom(GroundIntakeSub GIntakeSub, double GroundSpeed, double BeltSpeed) {
     m_GroundIntakeSub = GIntakeSub;
-    m_MotorSpeed = Speed;
+    m_GroundSpeed = GroundSpeed;
+    m_BeltSpeed = BeltSpeed;
     addRequirements(m_GroundIntakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,19 +24,19 @@ public class GroundIntakeCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_GroundIntakeSub.setMotors(0);
+    m_GroundIntakeSub.setMotors(0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_GroundIntakeSub.setMotors(-m_MotorSpeed);
+    m_GroundIntakeSub.setMotors(-m_GroundSpeed, m_BeltSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_GroundIntakeSub.setMotors(0);
+    m_GroundIntakeSub.setMotors(0, 0);
   }
 
   // Returns true when the command should end.
