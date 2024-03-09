@@ -32,7 +32,7 @@ public class AutoNoteLineup extends Command {
   @Override
   public void execute() {
     if (!MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 1)) {
-      m_SwerveSubSystem.drive(0, 0, -Constants.AutoTurnSpeed);
+      m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
     } else {
       LinedUp = true;
     }

@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ShooterSub;
 
 public class ShootCmd extends Command {
@@ -49,8 +48,6 @@ public class ShootCmd extends Command {
       case Load:
         BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
         TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
-        BottomMotor = MotorConstants.InteriorShooterSpeed;
-        TopMotor = MotorConstants.ExteriorShooterSpeed;
         SmartDashboard.putString("Current Shooter Function", "Shooting");
         break;
 

@@ -22,7 +22,6 @@ public final class Constants {
 
   public static class LimelightConstants {
     public static final double limelightHeight = 31;
-
     // Do not change zero it is a placeholder and should not be used in the code.
     public static final double[] targetHeights = { 0, 53.375, 53.375, 58.125, 58.125, 53.375, 53.375, 58.125, 58.125,
         53.375, 53.375, 52.75, 52.75, 52.75, 52.75, 52.75, 52.75 };
@@ -40,7 +39,6 @@ public final class Constants {
     public static final double TxTolerance = 1;
     public static final double TyTolerance = 0.5;
   }
-  // public static final double limelightHeight = ?
 
   public static final double DriveSpeed = 0.07;
 
@@ -53,21 +51,15 @@ public final class Constants {
   
   public static class ShooterConstants {
     public static final double ExteriorShooterSpeed = 1;
-    public static final double InteriorShooterSpeed = 1;
-    public static final double IntakeShooterSpeed = 0.5;
+    public static final double InteriorShooterSpeed = 0.75;
+    public static final double IntakeShooterSpeed = 0.2;
 
-    public static final int lowerShooterID = 13;
-    public static final int upperShooterID = 12;
+    public static final int upperShooterID = 13;
+    public static final int lowerShooterID = 12;
   //public static final int SeccondUpperShooterID = 14;
     public static final double DefaultShootVelocity = 0;
     public static final int IntakeLimiterSwitch = 0;
   }
-
-  public static final double AutoTurnSpeed = 0;
-  public static final double OrientaionOffset = 0;
-  public static final int LeftClimbMotorID = 9;
-  public static final int RightClimbMotorID = 10;
-  public static final double DefaultShootVelocity = 0;
 
   public static class sonicConstants {
     public static final int LSonicPingPort = 1;
@@ -86,34 +78,11 @@ public final class Constants {
     public static final double ClimberEncoderDeadban = 0;
 
   }
-
-  public static class ShooterMech {
-    public static final int upperShooterID = 0;
-    public static final int lowerShooterID = 0;
-    public static final int IntakeLimiterSwitch = 0;
-  }
-
-  public static class MotorConstants {
-    public static final double ExteriorShooterSpeed = 1.0;
-    public static final double InteriorShooterSpeed = 0.75;
-    public static final double IntakeShooterSpeed = 0.20;
-  }
   
   public static class AutoConstants{
     public static final double AutoTurnSpeed = 0;
     public static final double OrientaionOffset = 0;
     public static final double InchesTolerence = 0.5;
-  }
-
-  public static class AutonomousConstants {
-    public static final double autoY = 0.25;
-    public static final double autoX = 0.25;
-    public static final double autoRotation = 0.25;
-  }
-
-  public static class RobotConstants {
-    public static final double GearRatio = 1;
-    public static final double Diameter = 4;
   }
 }
 

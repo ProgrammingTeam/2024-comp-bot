@@ -13,15 +13,11 @@ import frc.robot.subsystems.UltraSonicSub;
 public class UltrasonicCmd extends Command {
   private final UltraSonicSub m_UltraSonicSub;
   private boolean isRobotOrientationEven;
-  private double currentLSonicIn;
-  private double currentRSonicIn;
   private final SwerveSubSystem m_SwerveSub;
-  private int distanceFromObject;
 
-  public UltrasonicCmd(UltraSonicSub ultraSonicSub, SwerveSubSystem swerveSub, int inchesFromObject) {
+  public UltrasonicCmd(UltraSonicSub ultraSonicSub, SwerveSubSystem swerveSub) {
     m_UltraSonicSub = ultraSonicSub;
     m_SwerveSub = swerveSub;
-    distanceFromObject = inchesFromObject;
 
     addRequirements(m_UltraSonicSub);
     addRequirements(m_SwerveSub);
