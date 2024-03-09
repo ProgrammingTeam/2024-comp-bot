@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ShooterSub;
 
 public class ShootCmd extends Command {
@@ -47,11 +49,16 @@ public class ShootCmd extends Command {
       case Load:
         BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
         TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        BottomMotor = MotorConstants.InteriorShooterSpeed;
+        TopMotor = MotorConstants.ExteriorShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Shooting");
         break;
 
       case SpinUp:
         BottomMotor = 0;
         TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        TopMotor = MotorConstants.ExteriorShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
       case AmpShot:
@@ -72,6 +79,13 @@ public class ShootCmd extends Command {
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         }
         break;
+
+      case NOTHING:
+        BottomMotor = 0;
+        TopMotor = 0;
+        SmartDashboard.putString("Current Shooter Function", "Idle");
+        break;
+
       default:
         BottomMotor = 0;
         TopMotor = 0;
@@ -98,6 +112,8 @@ public class ShootCmd extends Command {
     Load,
     AmpShot,
     DONOTHING,
-    SmartShoot;
+    SmartShoot,
+    NOTHING;
   }
+
 }

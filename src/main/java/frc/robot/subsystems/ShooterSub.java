@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,9 +28,17 @@ public class ShooterSub extends SubsystemBase {
       lowerShooter.set(lowerShooterSpeed);
       upperShooter.set(upperShooterSpeed);
     } else {
-      lowerShooter.set(MathUtil.clamp(lowerShooterSpeed, 0.0, 1.0));
-      upperShooter.set(MathUtil.clamp(upperShooterSpeed, 0.0, 1.0));
+      lowerShooter.set(clamper(lowerShooterSpeed, 0.0, 1.0));
+      upperShooter.set(clamper(upperShooterSpeed, 0.0, 1.0));
     }
+  }
+
+  private double clamper(double val, double min, double max) {
+    if (val > max)
+      return max;
+    if (val < min)
+      return min;
+    return val;
   }
 
   @Override
