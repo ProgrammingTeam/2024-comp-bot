@@ -4,5 +4,6 @@ public enum AutoSelecter {
     FrontSpeakerAuto,
     DoNothing,
     SourseSpeakerAuto,
-    AmpSpeakerAuto;
+    AmpSpeakerAuto,
+    MOOOOOVE;
 }

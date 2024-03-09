@@ -17,8 +17,7 @@ public class ShootCmd extends Command {
   double TopMotor;
   double FireVelocity;
 
-  public ShootCmd(ShooterSub sub, ShootModes mode, double rpmToFire)
-  {
+  public ShootCmd(ShooterSub sub, ShootModes mode, double rpmToFire) {
     Shooter = sub;
     ShootSelection = mode;
     FireVelocity = rpmToFire;
@@ -43,20 +42,21 @@ public class ShootCmd extends Command {
   public void execute() {
     switch (ShootSelection) {
       case Shoot:
+        BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
+        TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        break;
+
+      case Load:
+        BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
         BottomMotor = MotorConstants.InteriorShooterSpeed;
         TopMotor = MotorConstants.ExteriorShooterSpeed;
         SmartDashboard.putString("Current Shooter Function", "Shooting");
         break;
 
-      case Load:
-        BottomMotor = -MotorConstants.IntakeShooterSpeed;
-        TopMotor = -MotorConstants.IntakeShooterSpeed;
-        SmartDashboard.putString("Current Shooter Function", "Loading");
-        break;
-
       case SpinUp:
         BottomMotor = 0;
-        TopMotor = MotorConstants.ExteriorShooterSpeed;
+        TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
@@ -66,20 +66,20 @@ public class ShootCmd extends Command {
         SmartDashboard.putString("Current Shooter Function", "Amp Shot");
         break;
 
-      case DONOTHING:
-        BottomMotor = 0;
-        TopMotor = 0;
-        SmartDashboard.putString("Current Shooter Function", "Idle");
-        break;
-
       case SmartShoot:
         if (Shooter.Velocity() <= FireVelocity) {
           BottomMotor = 0;
-          TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;}
-        else {
+          TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        } else {
           BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         }
+        break;
+
+      case NOTHING:
+        BottomMotor = 0;
+        TopMotor = 0;
+        SmartDashboard.putString("Current Shooter Function", "Idle");
         break;
 
       default:
@@ -107,7 +107,8 @@ public class ShootCmd extends Command {
     Shoot,
     Load,
     AmpShot,
-    DONOTHING,
-    SmartShoot;
+    SmartShoot,
+    NOTHING;
   }
+
 }

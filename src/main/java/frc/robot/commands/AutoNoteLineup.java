@@ -13,6 +13,7 @@ public class AutoNoteLineup extends Command {
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean LinedUp;
   private double finalOrientation;
+
   /** Creates a new AutoNoteLineup. */
   public AutoNoteLineup(SwerveSubSystem SwerveSub) {
     m_SwerveSubSystem = SwerveSub;
@@ -31,16 +32,16 @@ public class AutoNoteLineup extends Command {
   @Override
   public void execute() {
     if (!MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 1)) {
-      m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
-    }
-    else {
+      m_SwerveSubSystem.drive(0, 0, -Constants.AutoTurnSpeed);
+    } else {
       LinedUp = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

@@ -9,11 +9,16 @@ import frc.robot.commands.Autos.AmpSpeakerAuto;
 import frc.robot.commands.Autos.AutoSelecter;
 import frc.robot.commands.Autos.DoNothing;
 import frc.robot.commands.Autos.FrontSpeakerAuto;
+import frc.robot.commands.Autos.MOVEAuto;
 import frc.robot.commands.Autos.SourseSpeakerAuto;
 import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.commands.LimelightDriveCom;
+import frc.robot.subsystems.UltraSonicSub;
+import frc.robot.commands.ShootCmd;
+import frc.robot.commands.ButtonClimber;
 import frc.robot.commands.*;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.GroundIntakeSub;
@@ -36,21 +41,25 @@ import edu.wpi.first.math.util.Units;
 public class RobotContainer {
   private final ShooterSub m_ShooterSub = new ShooterSub();
   private final LimelightSub m_LimelightSub = new LimelightSub();
-  // The robot's subsystems and commands are defined here...
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
   private final ClimbSub m_ClimbSub = new ClimbSub();
+  private final UltraSonicSub m_UltraSonicSub = new UltraSonicSub();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   public final Joystick m_LeftJoystick = new Joystick(OperatorConstants.LeftJoysticPort);
   public final Joystick m_RighttJoystick = new Joystick(OperatorConstants.RighttJoysticPort);
   private final SendableChooser<AutoSelecter> autoChooser = new SendableChooser<>();
+
+  // Swerve subsystem, command, and shooter subsystem
   SwerveDrive swerveDrive;
   private final SwerveSubSystem swerveSubSystem;
   private final TeleopSwerveCommand swerveCommand;
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
-  }  public final CommandJoystick leftJoystick = new CommandJoystick(1);
+  }  
+
+  public final CommandJoystick leftJoystick = new CommandJoystick(1);
   public final CommandJoystick RightJoystick = new CommandJoystick(2);
 
   public RobotContainer() {
@@ -68,9 +77,12 @@ public class RobotContainer {
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
     autoChooser.addOption("Sourse shoot auto", AutoSelecter.SourseSpeakerAuto);
     autoChooser.addOption("Amp shoot auto", AutoSelecter.AmpSpeakerAuto);
+    autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
     SmartDashboard.putData(autoChooser);
+
+    // swerveSubSystem.setDefaultCommand(swerveCommand);
     m_ClimbSub.setDefaultCommand(new ManualClimbCom(m_ClimbSub, m_driverController));
-configureBindings();
+    configureBindings();
   }
 
   private void configureBindings() {
@@ -107,11 +119,14 @@ configureBindings();
       case AmpSpeakerAuto:
         return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
 
+      case MOOOOOVE:
+        return new MOVEAuto(swerveSubSystem);
+
       case DoNothing:
         return new DoNothing();
+        
       default:
         return new DoNothing();
-
     }
   }
 }

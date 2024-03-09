@@ -14,6 +14,7 @@ public class SpeakerLimLineupCom extends Command {
   private final LimelightSub m_LimelightSub;
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean linedUp = false;
+
   /** Creates a new LimLineupCom. */
   public SpeakerLimLineupCom(LimelightSub LimSub, SwerveSubSystem SwerveSub) {
     m_LimelightSub = LimSub;
@@ -49,7 +50,8 @@ public class SpeakerLimLineupCom extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

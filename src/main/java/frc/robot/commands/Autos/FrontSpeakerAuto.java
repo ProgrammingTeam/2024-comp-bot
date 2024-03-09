@@ -39,5 +39,4 @@ public class FrontSpeakerAuto extends SequentialCommandGroup {
         new AutoSwerveCommand(m_SwerveSub, 0.5, 0, 12));
   }
 
-  
 }
