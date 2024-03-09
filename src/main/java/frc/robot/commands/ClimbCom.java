@@ -4,42 +4,71 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.Constants;
 import frc.robot.subsystems.ClimbSub;
 
 public class ClimbCom extends Command {
   private final ClimbSub m_ClimbSub;
   private final double m_ClimbSpeed;
-  private final double m_height;
+  private double TargetEncoderValue;
+  private final CommandJoystick leftJoystick;
 
   /** Creates a new ClimbCom. */
-  public ClimbCom(ClimbSub Climb, double climbSpeed, double Height) {
+  public ClimbCom(ClimbSub Climb, double climbSpeed, CommandJoystick Left) {
     m_ClimbSpeed = climbSpeed;
     m_ClimbSub = Climb;
-    m_height = Height;
+    leftJoystick = Left;
     addRequirements(m_ClimbSub);
+    TargetEncoderValue = MathUtil.interpolate(Constants.Climb.BottomEncoderPosition, Constants.Climb.TopEncoderPosition,
+        (leftJoystick.getRawAxis(3) + 1) / -2);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_ClimbSub.setMotors(0, 0);
+    SmartDashboard.putNumber("Target climb", TargetEncoderValue);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ClimbSub.setMotors(m_ClimbSpeed);
+    TargetEncoderValue = MathUtil.interpolate(Constants.Climb.BottomEncoderPosition, Constants.Climb.TopEncoderPosition,
+        (leftJoystick.getRawAxis(3) + 1) / -2);
+    if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <= Constants.Climb.ClimberEncoderDeadban) {
+      m_ClimbSub.setMotors(0, 0);
+    } else if (m_ClimbSub.EncoderValue() >= TargetEncoderValue) {
+      m_ClimbSub.setMotors(m_ClimbSpeed, m_ClimbSpeed);
+    } else if (m_ClimbSub.EncoderValue() <= TargetEncoderValue) {
+      m_ClimbSub.setMotors(-m_ClimbSpeed, -m_ClimbSpeed);
+    } else {
+      m_ClimbSub.setMotors(0, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ClimbSub.setMotors(0);
+    m_ClimbSub.setMotors(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_ClimbSub.EncoderValue() >= m_height - 0.5 && m_ClimbSub.EncoderValue() <= m_height + 0.5;
+    // if (Math.abs(m_ClimbSub.EncoderValue() - TargetEncoderValue) <=
+    // Constants.Climb.ClimberEncoderDeadban) {
+    // return true;
+    // }
+
+    // else {
+    // return false;
+    // }
+    // }
+    return false;
   }
 }

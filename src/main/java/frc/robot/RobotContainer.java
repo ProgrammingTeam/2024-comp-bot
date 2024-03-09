@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerveCommand;
-import frc.robot.commands.UltrasonicCmd;
 import frc.robot.commands.Autos.AmpSpeakerAuto;
 import frc.robot.commands.Autos.AutoSelecter;
 import frc.robot.commands.Autos.DoNothing;
@@ -14,19 +13,21 @@ import frc.robot.commands.Autos.FrontSpeakerAuto;
 import frc.robot.commands.Autos.MOVEAuto;
 import frc.robot.commands.Autos.SourseSpeakerAuto;
 import frc.robot.commands.LimelightDriveCom;
-import frc.robot.commands.ResetFieldRelativeCmd;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
 import frc.robot.subsystems.UltraSonicSub;
-import frc.robot.commands.ClimbCom;
+import frc.robot.commands.ShootCmd;
+import frc.robot.commands.ShootCmd.ShootModes;
+import frc.robot.commands.ButtonClimber;
+import frc.robot.commands.*;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.GroundIntakeSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
 import java.io.File;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -40,7 +41,7 @@ import swervelib.SwerveDrive;
 import edu.wpi.first.math.util.Units;
 
 public class RobotContainer {
-  // Subsystems
+  private final ShooterSub m_ShooterSub = new ShooterSub();
   private final LimelightSub m_LimelightSub = new LimelightSub();
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
   private final ClimbSub m_ClimbSub = new ClimbSub();
@@ -54,13 +55,14 @@ public class RobotContainer {
 
   // Swerve subsystem, command, and shooter subsystem
   SwerveDrive swerveDrive;
-  private final SwerveSubSystem swerveSubSystem;
-  private final TeleopSwerveCommand swerveCommand;
-  private final ShooterSub m_ShooterSub = new ShooterSub();
 
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
   }
+  SwerveSubSystem swerveSubSystem;
+  TeleopSwerveCommand swerveCommand;
+  public final CommandJoystick leftJoystick = new CommandJoystick(1);
+  public final CommandJoystick RightJoystick = new CommandJoystick(2);
 
   public RobotContainer() {
     try {
@@ -71,7 +73,8 @@ public class RobotContainer {
       // handled exception
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
-    swerveCommand = new TeleopSwerveCommand(swerveSubSystem, m_driverController);
+
+   swerveCommand = new TeleopSwerveCommand(swerveSubSystem, leftJoystick, RightJoystick);
     swerveSubSystem.setDefaultCommand(swerveCommand);
     autoChooser.setDefaultOption("Nothing auto", AutoSelecter.DoNothing);
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
@@ -79,25 +82,29 @@ public class RobotContainer {
     autoChooser.addOption("Amp shoot auto", AutoSelecter.AmpSpeakerAuto);
     autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
     SmartDashboard.putData(autoChooser);
+
+    // swerveSubSystem.setDefaultCommand(swerveCommand);
+    m_ClimbSub.setDefaultCommand(new ManualClimbCom(m_ClimbSub, m_driverController));
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
-    m_driverController.back().onTrue(new InstantCommand(swerveSubSystem::resetGyro));
-    // m_driverController.x().whileTrue(new LimelightDriveCom(swerveSubSystem,
+    // m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem,
     // m_LimelightSub));
+    m_driverController.y().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
+    m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4));
 
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    leftJoystick.button(2).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
+    leftJoystick.button(1).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4));
+    leftJoystick.button(0).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.2));
-    m_driverController.x().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
-    m_driverController.a().whileTrue(new ClimbCom(m_ClimbSub, 0, 0));
-    m_driverController.back().whileTrue(new ResetFieldRelativeCmd(swerveSubSystem));
-    m_driverController.start().onTrue(new UltrasonicCmd(m_UltraSonicSub, swerveSubSystem, 5));
+    RightJoystick.button(2).onTrue(new InstantCommand(swerveSubSystem::resetGyro));
+    RightJoystick.button(1).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    RightJoystick.button(0).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    RightJoystick.button(7).whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
+    RightJoystick.button(13).whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
   }
 
   public Command getAutonomousCommand() {
