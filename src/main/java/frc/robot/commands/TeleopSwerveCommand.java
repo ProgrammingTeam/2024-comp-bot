@@ -28,7 +28,7 @@ public class TeleopSwerveCommand extends Command {
   @Override
   public void execute() {
     m_swerveSubSystem.drive(Math.pow(-xboxController.getLeftY(), 3), Math.pow(-xboxController.getLeftX(), 3),
-        Math.pow(-xboxController.getRightX(), 3));
+Math.pow(-xboxController.getRightX(), 3));
   }
 
   // Called once the command ends or is interrupted.

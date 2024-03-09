@@ -34,6 +34,6 @@ public class SwerveSubSystem extends SubsystemBase {
   @Override
   public void periodic() {
     currentYaw = m_swerveDrive.getYaw().getDegrees();
-    metersPSec = m_swerveDrive.getFieldVelocity().vxMetersPerSecond;
+    metersPSec = Math.sqrt(Math.pow(m_swerveDrive.getFieldVelocity().vxMetersPerSecond, 2) + Math.pow(m_swerveDrive.getFieldVelocity().vyMetersPerSecond, 2));
   }
 }

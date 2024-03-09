@@ -10,12 +10,10 @@ import frc.robot.Constants;
 
 public class UltraSonicSub extends SubsystemBase {
   public final Ultrasonic LSonic = new Ultrasonic(Constants.sonicConstants.LSonicPingPort,
-      Constants.sonicConstants.LSonicPingPort);
+      Constants.sonicConstants.LSonicEchoPort);
   public final Ultrasonic RSonic = new Ultrasonic(Constants.sonicConstants.RSonicPingPort,
       Constants.sonicConstants.RSonicEchoPort);
-  public double LSonicRangeIn;
-  public double LSonicPoll;
-  public double RSonicPoll;
+
 
   public UltraSonicSub() {
   }
@@ -30,7 +28,5 @@ public class UltraSonicSub extends SubsystemBase {
 
   @Override
   public void periodic() {
-    LSonicPoll = getLeftRangeIn();
-    RSonicPoll = getRightRangeIn();
   }
 }
