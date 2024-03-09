@@ -13,19 +13,27 @@ import swervelib.SwerveDrive;
 
 public class SwerveSubSystem extends SubsystemBase {
   SwerveDrive m_swerveDrive;
-  Rotation2d yaw;
-
+  public double metersPSec;
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
   }
 
-  public void drive(double X, double Y, double rot) {
-    m_swerveDrive.drive(new Translation2d(X, Y),
-        rot, true, false);
+  public double getRobotOrientation() {
+    return m_swerveDrive.getYaw().getDegrees();
+  }
+  
+  public void drive(double Xaxis, double YAxis, double rotation) {
+    m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
+        rotation, true, false);
+  }
+
+  public void resetGyro() {
+    m_swerveDrive.zeroGyro();
   }
 
   @Override
   public void periodic() {
-    yaw = m_swerveDrive.getYaw();
+        m_swerveDrive.getFieldVelocity().vyMetersPerSecond = metersPSec;
+    // This method will be called once per scheduler run
   }
 }
