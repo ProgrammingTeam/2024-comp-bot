@@ -21,8 +21,8 @@ public class SwerveSubSystem extends SubsystemBase {
     return m_swerveDrive.getYaw().getDegrees();
   }
 
-  public void drive(double Xaxis, double YAxis, double rotation) {
-    m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
+  public void drive(double XAxis, double YAxis, double rotation) {
+    m_swerveDrive.drive(new Translation2d(YAxis, XAxis),
         rotation, true, false);
   }
 
