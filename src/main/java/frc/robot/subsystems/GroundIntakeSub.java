@@ -12,12 +12,16 @@ import frc.robot.Constants;
 
 public class GroundIntakeSub extends SubsystemBase {
   private final CANSparkMax GroundIntakeMotor = new CANSparkMax(Constants.GroundIntake.GIntakeID, MotorType.kBrushless);
-  
-  private final CANSparkMax TopBeltIntakeMotor = new CANSparkMax(Constants.GroundIntake.TopBeltIntakeID, MotorType.kBrushless);
-  private final CANSparkMax BottomBeltIntakeMotor = new CANSparkMax(Constants.GroundIntake.BottomBeltIntakeID, MotorType.kBrushless);
+
+  private final CANSparkMax TopBeltIntakeMotor = new CANSparkMax(Constants.GroundIntake.TopBeltIntakeID,
+      MotorType.kBrushless);
+  private final CANSparkMax BottomBeltIntakeMotor = new CANSparkMax(Constants.GroundIntake.BottomBeltIntakeID,
+      MotorType.kBrushless);
+
   /** Creates a new GroundIntakeSub. */
   public GroundIntakeSub() {
-    BottomBeltIntakeMotor.setInverted(true);
+    TopBeltIntakeMotor.follow(BottomBeltIntakeMotor);
+    TopBeltIntakeMotor.setInverted(true);
   }
 
   @Override
@@ -27,8 +31,6 @@ public class GroundIntakeSub extends SubsystemBase {
 
   public void setMotors(double MotorSpeed, double BeltSpeed) {
     GroundIntakeMotor.set(MotorSpeed);
-
-    TopBeltIntakeMotor.set(BeltSpeed);
     BottomBeltIntakeMotor.set(BeltSpeed);
   }
 }

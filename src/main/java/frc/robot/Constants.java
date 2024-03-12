@@ -57,7 +57,6 @@ public final class Constants {
 
     public static final int upperShooterID = 13;
     public static final int lowerShooterID = 12;
-    // public static final int SeccondUpperShooterID = 14;
     public static final double DefaultShootVelocity = 0;
     public static final int IntakeLimiterSwitch = 0;
   }
