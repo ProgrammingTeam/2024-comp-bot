@@ -14,6 +14,7 @@ public class ButtonClimber extends Command {
   public ButtonClimber(ClimbSub climbSub1, double MotorSpeed) {
     climbSub = climbSub1;
     motorSpeeds = MotorSpeed;
+    addRequirements(climbSub);
   }
 
   // Called when the command is initially scheduled.

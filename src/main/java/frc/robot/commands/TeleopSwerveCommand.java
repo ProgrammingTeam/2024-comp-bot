@@ -29,8 +29,10 @@ public class TeleopSwerveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubSystem.drive(Math.pow(-m_LJoystick.getRawAxis(0), 3), Math.pow(-m_LJoystick.getRawAxis(1), 3),
-        Math.pow(-m_RJoystick.getRawAxis(0), 3));
+    m_swerveSubSystem.drive(
+      Math.pow(-m_LJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2),
+      Math.pow(-m_LJoystick.getRawAxis(1), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2),
+      Math.pow(-m_RJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2));
   }
 
   // Called once the command ends or is interrupted.

@@ -16,11 +16,12 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int LeftJoysticPort = 1;
+    public static final int RighttJoysticPort = 2;
   }
 
   public static class LimelightConstants {
     public static final double limelightHeight = 31;
-
     // Do not change zero it is a placeholder and should not be used in the code.
     public static final double[] targetHeights = { 0, 53.375, 53.375, 58.125, 58.125, 53.375, 53.375, 58.125, 58.125,
         53.375, 53.375, 52.75, 52.75, 52.75, 52.75, 52.75, 52.75 };
@@ -38,14 +39,36 @@ public final class Constants {
     public static final double TxTolerance = 1;
     public static final double TyTolerance = 0.5;
   }
-  // public static final double limelightHeight = ?
 
   public static final double DriveSpeed = 0.07;
 
   public static class GroundIntake {
     public static final int GIntakeID = 11;
+
+    public static final int TopBeltIntakeID = 14;
+    public static final int BottomBeltIntakeID = 15;
+  }
+  
+  public static class ShooterConstants {
+    public static final double ExteriorShooterSpeed = 1;
+    public static final double InteriorShooterSpeed = 0.75;
+    public static final double IntakeShooterSpeed = 0.2;
+
+    public static final int upperShooterID = 13;
+    public static final int lowerShooterID = 12;
+  //public static final int SeccondUpperShooterID = 14;
+    public static final double DefaultShootVelocity = 0;
+    public static final int IntakeLimiterSwitch = 0;
   }
 
+  public static class sonicConstants {
+    public static final int LSonicPingPort = 1;
+    public static final int LSonicEchoPort = 2;
+    public static final int RSonicPingPort = 3;
+    public static final int RSonicEchoPort = 4;
+    public static final int AmountOfInFromObject = 5;
+    public static final double AutoMapSpeed = 0.25;
+  }
   public static class Climb {
     public static final int LeftClimbMotorID = 10;
     public static final int RightClimbMotorID = 9;
@@ -55,17 +78,11 @@ public final class Constants {
     public static final double ClimberEncoderDeadban = 0;
 
   }
-
-  public static class ShooterMech {
-    public static final int upperShooterID = 0;
-    public static final int lowerShooterID = 0;
-    public static final int IntakeLimiterSwitch = 0;
+  
+  public static class AutoConstants{
+    public static final double AutoTurnSpeed = 0;
+    public static final double OrientaionOffset = 0;
+    public static final double InchesTolerence = 0.5;
   }
-
-  public static class MotorConstants {
-    public static final double ExteriorShooterSpeed = 1.0;
-    public static final double InteriorShooterSpeed = 0.75;
-    public static final double IntakeShooterSpeed = 0.20;
-  }
-
 }
+

@@ -23,7 +23,6 @@ public class ClimbCom extends Command {
     m_ClimbSub = Climb;
     leftJoystick = Left;
     addRequirements(m_ClimbSub);
-
     TargetEncoderValue = MathUtil.interpolate(Constants.Climb.BottomEncoderPosition, Constants.Climb.TopEncoderPosition,
         (leftJoystick.getRawAxis(3) + 1) / -2);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -55,6 +54,7 @@ public class ClimbCom extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_ClimbSub.setMotors(0, 0);
   }
 
   // Returns true when the command should end.

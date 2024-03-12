@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LimelightSub extends SubsystemBase {
-  public  double distenceFromTarget;
+  public double distenceFromTarget;
   private double opposite;
   private double TxValue;
   private double TyValue;
@@ -38,7 +38,8 @@ public class LimelightSub extends SubsystemBase {
 
     if (TidValue >= 1 && TidValue <= 16) {
       opposite = Constants.LimelightConstants.targetHeights[TidValue] - Constants.LimelightConstants.limelightHeight;
-      distenceFromTarget = opposite / Math.tan(Math.toRadians(LimeTY.getDouble(0) + Constants.LimelightConstants.angleOffset));
+      distenceFromTarget = opposite
+          / Math.tan(Math.toRadians(LimeTY.getDouble(0) + Constants.LimelightConstants.angleOffset));
     }
 
     SmartDashboard.putNumber("Lime TX value", TxValue);
@@ -52,6 +53,7 @@ public class LimelightSub extends SubsystemBase {
   public int getTarget() {
     return (int) LimeTid.getInteger(-1);
   }
+
   public double angleFromCenter() {
     return TxValue;
   }

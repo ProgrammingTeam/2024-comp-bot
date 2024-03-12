@@ -9,15 +9,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
 
 public class SwerveSubSystem extends SubsystemBase {
-  /** Creates a new SwerveSubSystem. */
   SwerveDrive m_swerveDrive;
+  double currentYaw;
+  public double metersPSec;
 
   public SwerveSubSystem(SwerveDrive swerveDrive) {
     m_swerveDrive = swerveDrive;
   }
 
-  public void drive(double Xaxis, double YAxis, double rotation) {
-    m_swerveDrive.drive(new Translation2d(Xaxis, YAxis),
+  public double getRobotOrientation() {
+    return m_swerveDrive.getYaw().getDegrees();
+  }
+
+  public void drive(double XAxis, double YAxis, double rotation) {
+    m_swerveDrive.drive(new Translation2d(YAxis, XAxis),
         rotation, true, false);
   }
 
@@ -27,6 +32,7 @@ public class SwerveSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    currentYaw = m_swerveDrive.getYaw().getDegrees();
+    metersPSec = Math.sqrt(Math.pow(m_swerveDrive.getFieldVelocity().vxMetersPerSecond, 2) + Math.pow(m_swerveDrive.getFieldVelocity().vyMetersPerSecond, 2));
   }
 }
