@@ -55,10 +55,9 @@ public class RobotContainer {
   SwerveDrive swerveDrive;
   private final SwerveSubSystem swerveSubSystem;
   private final TeleopSwerveCommand swerveCommand;
-
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
-  }
+  }  
 
   public final CommandJoystick leftJoystick = new CommandJoystick(1);
   public final CommandJoystick RightJoystick = new CommandJoystick(2);
@@ -93,20 +92,20 @@ public class RobotContainer {
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
 
-    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4, 0.4));
-    m_driverController.axisGreaterThan(3, .5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -0.4));
+    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6,  1));
+    m_driverController.axisGreaterThan(3, .5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
 
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
 
-    leftJoystick.button(2).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
-    leftJoystick.button(1).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.4, 0.4));
-    leftJoystick.button(0).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    leftJoystick.button(3).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
+    leftJoystick.button(2).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1));
+    leftJoystick.button(1).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
 
-    RightJoystick.button(2).onTrue(new InstantCommand(swerveSubSystem::resetGyro));
-    RightJoystick.button(1).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
-    RightJoystick.button(0).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
-    RightJoystick.button(7).whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
-    RightJoystick.button(13).whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
+    RightJoystick.button(3).onTrue(new InstantCommand(swerveSubSystem::resetGyro, swerveSubSystem));
+    RightJoystick.button(2).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    RightJoystick.button(1).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    RightJoystick.button(8).whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
+    RightJoystick.button(14).whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
   }
 
   public Command getAutonomousCommand() {
@@ -125,7 +124,7 @@ public class RobotContainer {
 
       case DoNothing:
         return new DoNothing();
-
+        
       default:
         return new DoNothing();
     }
