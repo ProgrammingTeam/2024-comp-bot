@@ -47,8 +47,9 @@ public final class Constants {
 
     public static final int TopBeltIntakeID = 14;
     public static final int BottomBeltIntakeID = 15;
+    public static final double GroundIntakeSpeed = 0.4;
   }
-  
+
   public static class ShooterConstants {
     public static final double ExteriorShooterSpeed = 1;
     public static final double InteriorShooterSpeed = 0.75;
@@ -56,7 +57,7 @@ public final class Constants {
 
     public static final int upperShooterID = 13;
     public static final int lowerShooterID = 12;
-  //public static final int SeccondUpperShooterID = 14;
+    // public static final int SeccondUpperShooterID = 14;
     public static final double DefaultShootVelocity = 0;
     public static final int IntakeLimiterSwitch = 0;
   }
@@ -69,6 +70,7 @@ public final class Constants {
     public static final int AmountOfInFromObject = 5;
     public static final double AutoMapSpeed = 0.25;
   }
+
   public static class Climb {
     public static final int LeftClimbMotorID = 10;
     public static final int RightClimbMotorID = 9;
@@ -78,11 +80,10 @@ public final class Constants {
     public static final double ClimberEncoderDeadban = 0;
 
   }
-  
-  public static class AutoConstants{
+
+  public static class AutoConstants {
     public static final double AutoTurnSpeed = 0;
     public static final double OrientaionOffset = 0;
     public static final double InchesTolerence = 0.5;
   }
 }
-
