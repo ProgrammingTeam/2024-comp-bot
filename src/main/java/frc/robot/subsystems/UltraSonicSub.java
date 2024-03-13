@@ -4,27 +4,30 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class UltraSonicSub extends SubsystemBase {
-  public final Ultrasonic LSonic = new Ultrasonic(Constants.sonicConstants.LSonicPingPort,
-      Constants.sonicConstants.LSonicEchoPort);
-  public final Ultrasonic RSonic = new Ultrasonic(Constants.sonicConstants.RSonicPingPort,
-      Constants.sonicConstants.RSonicEchoPort);
+  // public final Ultrasonic LSonic = new Ultrasonic(Constants.sonicConstants.LSonicPingPort,
+  //     Constants.sonicConstants.LSonicEchoPort);
+  // public final Ultrasonic RSonic = new Ultrasonic(Constants.sonicConstants.RSonicPingPort,
+  //     Constants.sonicConstants.RSonicEchoPort);
+
+  private final AnalogInput LSonic = new AnalogInput(Constants.sonicConstants.LSonicPort);
+  private final AnalogInput RSonic = new AnalogInput(Constants.sonicConstants.RSonicPort); 
 
 
-  public UltraSonicSub() {
+  public UltraSonicSub() { 
   }
 
   public double getLeftRangeIn() {
-    return LSonic.getRangeInches();
+    return LSonic.getVoltage() * Constants.sonicConstants.voltageToInchesConversionFactor;
   }
 
   public double getRightRangeIn() {
-    return RSonic.getRangeInches();
+    return RSonic.getVoltage() * Constants.sonicConstants.voltageToInchesConversionFactor;
   }
 
   @Override
