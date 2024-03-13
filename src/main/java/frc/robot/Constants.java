@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.RobotController;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -65,12 +67,16 @@ public final class Constants {
   }
 
   public static class sonicConstants {
-    public static final int LSonicPingPort = 1;
-    public static final int LSonicEchoPort = 2;
-    public static final int RSonicPingPort = 3;
-    public static final int RSonicEchoPort = 4;
+    public static final int LSonicPort = 1;
+    public static final int RSonicPort = 2;
+    // public static final int RSonicPingPort = 3;
+    // public static final int RSonicEchoPort = 4;
     public static final int AmountOfInFromObject = 5;
     public static final double AutoMapSpeed = 0.25;
+
+    public static final double voltageToInchesConversionFactor = 5/5 * 0.0492;
+    //change 5/5 to 5/x where x is supply voltage
+    //the other number converts to inches
   }
 
   public static class Climb {
