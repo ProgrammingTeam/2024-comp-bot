@@ -24,7 +24,7 @@ public class ClimbSub extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder Value", EncoderValue());
+    SmartDashboard.putNumber("Climb Encoder Value", EncoderValue());
   }
 
   public void setMotors(double lClimbSpeed, double rClimbSpeed) {

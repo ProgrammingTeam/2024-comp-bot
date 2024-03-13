@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubSystem;
@@ -38,6 +39,7 @@ public class AutoSwerveCommand extends Command {
     // Rotation value subject to change
     m_swerveSubSystem.drive(m_XMovement, m_YMovement, 0);
     distanceTraveled += Units.metersToInches(m_swerveSubSystem.metersPSec / 50);
+    SmartDashboard.getNumber("Preceived Distence Traveled", distanceTraveled);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +51,6 @@ public class AutoSwerveCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return MathUtil.isNear(m_distanceNeeded, distanceTraveled, Constants.AutoConstants.InchesTolerence);
+    return m_distanceNeeded  <= distanceTraveled;
   }
 }

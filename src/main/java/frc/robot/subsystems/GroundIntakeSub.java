@@ -20,8 +20,8 @@ public class GroundIntakeSub extends SubsystemBase {
 
   /** Creates a new GroundIntakeSub. */
   public GroundIntakeSub() {
-    TopBeltIntakeMotor.follow(BottomBeltIntakeMotor);
-    TopBeltIntakeMotor.setInverted(true);
+    TopBeltIntakeMotor.follow(BottomBeltIntakeMotor, true);
+    // TopBeltIntakeMotor.setInverted(true);
   }
 
   @Override

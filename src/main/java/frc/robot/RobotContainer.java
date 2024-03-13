@@ -20,6 +20,7 @@ import frc.robot.subsystems.UltraSonicSub;
 import frc.robot.commands.ShootCmd;
 import frc.robot.commands.ButtonClimber;
 import frc.robot.commands.*;
+import frc.robot.subsystems.CameraSub;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.GroundIntakeSub;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -82,6 +83,7 @@ public class RobotContainer {
 
     // swerveSubSystem.setDefaultCommand(swerveCommand);
     m_ClimbSub.setDefaultCommand(new ManualClimbCom(m_ClimbSub, m_driverController));
+    new CameraSub();
     configureBindings();
   }
 
@@ -114,10 +116,10 @@ public class RobotContainer {
         return new FrontSpeakerAuto(m_ShooterSub, swerveSubSystem, m_GroundIntakeSub);
 
       case SourseSpeakerAuto:
-        return new SourseSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
+        return new SourseSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub, m_UltraSonicSub);
 
       case AmpSpeakerAuto:
-        return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
+        return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub, m_UltraSonicSub);
 
       case MOOOOOVE:
         return new MOVEAuto(swerveSubSystem);

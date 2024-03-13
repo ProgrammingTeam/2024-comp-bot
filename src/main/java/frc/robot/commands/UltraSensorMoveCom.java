@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubSystem;
 import frc.robot.subsystems.UltraSonicSub;
@@ -13,6 +14,7 @@ public class UltraSensorMoveCom extends Command {
   private final SwerveSubSystem m_SwerveSubSystem;
   private final double m_distanceFromObject;
   private boolean atDestination;
+  private boolean GoingForwards;
   /** Creates a new UltraSensorMoveCom. */
   public UltraSensorMoveCom(UltraSonicSub SonicSub, SwerveSubSystem Swerve, double DistFromObject) {
     m_UltraSonicSub = SonicSub;
@@ -25,16 +27,20 @@ public class UltraSensorMoveCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   atDestination = false;  
+   atDestination = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_UltraSonicSub.getLeftRangeIn() >= m_distanceFromObject || m_UltraSonicSub.getRightRangeIn() >= m_distanceFromObject) {
+    if (m_UltraSonicSub.getLeftRangeIn() > m_distanceFromObject || m_UltraSonicSub.getRightRangeIn() > m_distanceFromObject) {
       m_SwerveSubSystem.drive(0, 0.2, 0);
     }
-    else {
+    else if (m_UltraSonicSub.getLeftRangeIn() < m_distanceFromObject || m_UltraSonicSub.getRightRangeIn() < m_distanceFromObject) {
+      m_SwerveSubSystem.drive(0, -0.2, 0);
+    }
+    
+    else if (MathUtil.isNear(m_distanceFromObject, m_UltraSonicSub.getLeftRangeIn(), 0.1) || MathUtil.isNear(m_distanceFromObject, m_UltraSonicSub.getRightRangeIn(), 0.1)) {
       atDestination = true;
     }
   }

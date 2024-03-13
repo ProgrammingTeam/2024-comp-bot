@@ -12,10 +12,12 @@ import frc.robot.commands.GroundIntakeCom;
 import frc.robot.commands.ShootCmd;
 import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.commands.SpeakerLimLineupCom;
+import frc.robot.commands.UltrasonicCmd;
 import frc.robot.subsystems.GroundIntakeSub;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.subsystems.UltraSonicSub;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,7 +26,7 @@ public class AmpSpeakerAuto extends SequentialCommandGroup {
   /** Creates a new SourseSpwakerAuto. 
    * @param m_LimelightSub 
    * @param m_GroundIntakeSub */
-  public AmpSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub, GroundIntakeSub m_GroundIntakeSub) {
+  public AmpSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub, GroundIntakeSub m_GroundIntakeSub, UltraSonicSub m_UltraSonicSub) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -35,7 +37,8 @@ public class AmpSpeakerAuto extends SequentialCommandGroup {
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             Commands.waitSeconds(1)),
-        new AutoNoteLineup(m_SwerveSub),
+        // new AutoNoteLineup(m_SwerveSub),
+        new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
         Commands.race(
             new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
             new GroundIntakeCom(m_GroundIntakeSub, 0.1, 0.1)),

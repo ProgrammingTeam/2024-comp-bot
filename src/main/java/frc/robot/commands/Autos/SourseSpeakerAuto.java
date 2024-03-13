@@ -11,18 +11,21 @@ import frc.robot.commands.AutoSwerveCommand;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.commands.ShootCmd;
 import frc.robot.commands.SpeakerLimLineupCom;
+import frc.robot.commands.UltrasonicCmd;
 import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.GroundIntakeSub;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
+import frc.robot.subsystems.UltraSonicSub;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SourseSpeakerAuto extends SequentialCommandGroup {
-  /** Creates a new SourseSpwakerAuto. */
-  public SourseSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub, GroundIntakeSub m_GroundIntakeSub) {
+  /** Creates a new SourseSpwakerAuto. 
+ * @param m_UltraSonicSub */
+  public SourseSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub, GroundIntakeSub m_GroundIntakeSub, UltraSonicSub m_UltraSonicSub) {
     addCommands(
         new SpeakerLimLineupCom(m_LimelightSub, m_SwerveSub),
         Commands.race(
@@ -31,7 +34,8 @@ public class SourseSpeakerAuto extends SequentialCommandGroup {
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             Commands.waitSeconds(1)),
-        new AutoNoteLineup(m_SwerveSub),
+        new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
+        //new AutoNoteLineup(m_SwerveSub),
         Commands.race(
             new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
             new GroundIntakeCom(m_GroundIntakeSub, 0.1, 0.1)),
