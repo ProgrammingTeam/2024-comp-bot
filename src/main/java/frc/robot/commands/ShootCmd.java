@@ -43,12 +43,13 @@ public class ShootCmd extends Command {
       case Shoot:
         BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
         TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
       case Load:
         BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
         TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
-        SmartDashboard.putString("Current Shooter Function", "Shooting");
+        SmartDashboard.putString("Current Shooter Function", "Loading");
         break;
 
       case SpinUp:
@@ -58,8 +59,8 @@ public class ShootCmd extends Command {
         break;
 
       case AmpShot:
-        BottomMotor = 0.16;
-        TopMotor = 0.16;
+        BottomMotor = Constants.ShooterConstants.AmpInteriorShootSpeed;
+        TopMotor = Constants.ShooterConstants.AmpExteriorShootSpeed;
         SmartDashboard.putString("Current Shooter Function", "Amp Shot");
         break;
 
@@ -71,6 +72,7 @@ public class ShootCmd extends Command {
           BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         }
+        SmartDashboard.putString("Current Shooter Function", "Smart Shooting");
         break;
 
       case NOTHING:

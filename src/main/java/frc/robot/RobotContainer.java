@@ -88,13 +88,13 @@ public class RobotContainer {
   private void configureBindings() {
     // m_driverController.y().whileTrue(new LimelightDriveCom(swerveSubSystem,
     // m_LimelightSub));
-    m_driverController.y().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    m_driverController.y().and(m_driverController.axisLessThan(2, 0.5)).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    m_driverController.y().and(m_driverController.axisGreaterThan(2, 0.5)).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.AmpShot));
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
 
     m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6,  1));
-    m_driverController.axisGreaterThan(3, .5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
-
+    m_driverController.axisGreaterThan(3, 0.5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
 
     leftJoystick.button(3).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));

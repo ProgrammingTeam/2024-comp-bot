@@ -6,21 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubSystem;
 import frc.robot.subsystems.UltraSonicSub;
 
 public class UltrasonicCmd extends Command {
   private final UltraSonicSub m_UltraSonicSub;
   private boolean isRobotOrientationEven;
+  private boolean TurningLeft;
   private final SwerveSubSystem m_SwerveSub;
 
   public UltrasonicCmd(UltraSonicSub ultraSonicSub, SwerveSubSystem swerveSub) {
     m_UltraSonicSub = ultraSonicSub;
     m_SwerveSub = swerveSub;
 
-    addRequirements(m_UltraSonicSub);
-    addRequirements(m_SwerveSub);
+    addRequirements(m_UltraSonicSub, m_SwerveSub);
   }
 
   // Called when the command is initially scheduled.
@@ -33,10 +32,10 @@ public class UltrasonicCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(MathUtil.isNear(m_UltraSonicSub.getLeftRangeIn(), m_UltraSonicSub.getRightRangeIn(), 0.1)) {
-      m_SwerveSub.drive(0, 0, .2);
-    }
-    else {
+    TurningLeft = m_UltraSonicSub.getLeftRangeIn() < m_UltraSonicSub.getRightRangeIn();
+    if (!MathUtil.isNear(m_UltraSonicSub.getLeftRangeIn(), m_UltraSonicSub.getRightRangeIn(), 0.1)) {
+      m_SwerveSub.drive(0, 0, TurningLeft ? -0.2 : 0.2);
+    } else {
       isRobotOrientationEven = true;
     }
   }
