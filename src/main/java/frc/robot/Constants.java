@@ -68,9 +68,7 @@ public final class Constants {
 
   public static class sonicConstants {
     public static final int LSonicPort = 1;
-    public static final int RSonicPort = 2;
-    // public static final int RSonicPingPort = 3;
-    // public static final int RSonicEchoPort = 4;
+    public static final int RSonicPort = 0;
     public static final int AmountOfInFromObject = 5;
     public static final double AutoMapSpeed = 0.25;
 
