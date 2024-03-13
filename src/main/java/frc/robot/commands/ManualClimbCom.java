@@ -31,6 +31,8 @@ public class ManualClimbCom extends Command {
     ClimbSub.setMotors(xboxController.getLeftY(), xboxController.getRightY());
   }
 
+  // I just walked away again and was grounded from my dongle again....
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

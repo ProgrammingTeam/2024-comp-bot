@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
@@ -10,13 +6,13 @@ import frc.robot.commands.Autos.AutoSelecter;
 import frc.robot.commands.Autos.DoNothing;
 import frc.robot.commands.Autos.FrontSpeakerAuto;
 import frc.robot.commands.Autos.MOVEAuto;
-import frc.robot.commands.Autos.SourseSpeakerAuto;
+import frc.robot.commands.Autos.SourceSpeakerAuto;
 import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
 import frc.robot.commands.LimelightDriveCom;
-import frc.robot.subsystems.UltraSonicSub;
+//import frc.robot.subsystems.UltraSonicSub;
 import frc.robot.commands.ShootCmd;
 import frc.robot.commands.ButtonClimber;
 import frc.robot.commands.*;
@@ -43,7 +39,7 @@ public class RobotContainer {
   private final LimelightSub m_LimelightSub = new LimelightSub();
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
   private final ClimbSub m_ClimbSub = new ClimbSub();
-  private final UltraSonicSub m_UltraSonicSub = new UltraSonicSub();
+  // private final UltraSonicSub m_UltraSonicSub = new UltraSonicSub();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
@@ -55,9 +51,10 @@ public class RobotContainer {
   SwerveDrive swerveDrive;
   private final SwerveSubSystem swerveSubSystem;
   private final TeleopSwerveCommand swerveCommand;
+
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
-  }  
+  }
 
   public final CommandJoystick leftJoystick = new CommandJoystick(1);
   public final CommandJoystick RightJoystick = new CommandJoystick(2);
@@ -75,7 +72,7 @@ public class RobotContainer {
     swerveSubSystem.setDefaultCommand(swerveCommand);
     autoChooser.setDefaultOption("Nothing auto", AutoSelecter.DoNothing);
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
-    autoChooser.addOption("Sourse shoot auto", AutoSelecter.SourseSpeakerAuto);
+    autoChooser.addOption("Source shoot auto", AutoSelecter.SourceSpeakerAuto);
     autoChooser.addOption("Amp shoot auto", AutoSelecter.AmpSpeakerAuto);
     autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
     SmartDashboard.putData(autoChooser);
@@ -92,7 +89,7 @@ public class RobotContainer {
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
 
-    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6,  1));
+    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1));
     m_driverController.axisGreaterThan(3, .5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
 
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
@@ -113,8 +110,8 @@ public class RobotContainer {
       case FrontSpeakerAuto:
         return new FrontSpeakerAuto(m_ShooterSub, swerveSubSystem, m_GroundIntakeSub);
 
-      case SourseSpeakerAuto:
-        return new SourseSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
+      case SourceSpeakerAuto:
+        return new SourceSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
 
       case AmpSpeakerAuto:
         return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub);
@@ -124,7 +121,7 @@ public class RobotContainer {
 
       case DoNothing:
         return new DoNothing();
-        
+
       default:
         return new DoNothing();
     }

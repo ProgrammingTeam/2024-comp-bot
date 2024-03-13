@@ -10,8 +10,8 @@ import frc.robot.commands.AutoNoteLineup;
 import frc.robot.commands.AutoSwerveCommand;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.commands.ShootCmd;
-import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.commands.SpeakerLimLineupCom;
+import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.GroundIntakeSub;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
@@ -20,17 +20,10 @@ import frc.robot.subsystems.SwerveSubSystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AmpSpeakerAuto extends SequentialCommandGroup {
-    /**
-     * Creates a new SourceSpwakerAuto.
-     * 
-     * @param m_LimelightSub
-     * @param m_GroundIntakeSub
-     */
-    public AmpSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub,
+public class SourceSpeakerAuto extends SequentialCommandGroup {
+    /** Creates a new SourceSpwakerAuto. */
+    public SourceSpeakerAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, LimelightSub m_LimelightSub,
             GroundIntakeSub m_GroundIntakeSub) {
-        // Add your commands in the addCommands() call, e.g.
-        // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new SpeakerLimLineupCom(m_LimelightSub, m_SwerveSub),
                 Commands.race(
