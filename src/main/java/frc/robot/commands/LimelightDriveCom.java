@@ -16,7 +16,7 @@ public class LimelightDriveCom extends Command {
   /** Creates a new LimelightDriveCom. */
   private final LimelightSub m_LimelightSub;
   private final SwerveSubSystem m_SwerveSub;
-
+  private boolean NoLimelight = false;
   private double DisteanceToGo;
   private PIDController CenterPIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
   private PIDController DisteancePIDCon = new PIDController(Constants.LimelightConstants.kp, 0, 0);
@@ -32,6 +32,7 @@ public class LimelightDriveCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    NoLimelight = false;
     CenterPIDCon.setSetpoint(0);
     CenterPIDCon.setTolerance(Constants.LimelightConstants.TxTolerance);
     DisteancePIDCon.setTolerance(Constants.LimelightConstants.TyTolerance);
@@ -54,6 +55,7 @@ public class LimelightDriveCom extends Command {
           DisteancePIDCon.calculate(DisteanceToGo) * inverter,
           Constants.LimelightConstants.targetAngle[m_LimelightSub.getTarget()]);
     } catch (Exception e) {
+      NoLimelight = true;
       // TODO: handle exception
     }
 
@@ -72,6 +74,6 @@ public class LimelightDriveCom extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return CenterPIDCon.atSetpoint() && DisteancePIDCon.atSetpoint();
+    return CenterPIDCon.atSetpoint() && DisteancePIDCon.atSetpoint() || NoLimelight;
   }
 }

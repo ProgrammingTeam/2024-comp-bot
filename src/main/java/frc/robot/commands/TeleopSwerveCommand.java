@@ -30,9 +30,9 @@ public class TeleopSwerveCommand extends Command {
   @Override
   public void execute() {
     m_swerveSubSystem.drive(
-      Math.pow(-m_LJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2),
-      Math.pow(-m_LJoystick.getRawAxis(1), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2),
-      Math.pow(-m_RJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2));
+      Math.pow(-m_LJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81,
+      Math.pow(-m_LJoystick.getRawAxis(1), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81,
+      Math.pow(-m_RJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81);
   }
 
   // Called once the command ends or is interrupted.

@@ -95,13 +95,13 @@ public class RobotContainer {
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
 
-    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6,  1));
+    m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 1,  1));
     m_driverController.axisGreaterThan(3, 0.5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
 
     leftJoystick.button(3).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
-    leftJoystick.button(2).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1));
-    leftJoystick.button(1).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
+    leftJoystick.button(2).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 1, 1));
+    //leftJoystick.button(1).onTrue(new LimelightDriveCom(swerveSubSystem, m_LimelightSub));
 
     RightJoystick.button(3).onTrue(new InstantCommand(swerveSubSystem::resetGyro, swerveSubSystem));
     RightJoystick.button(2).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));

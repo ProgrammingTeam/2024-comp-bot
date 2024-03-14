@@ -23,11 +23,11 @@ public class UltraSonicSub extends SubsystemBase {
   }
 
   public double getLeftRangeIn() {
-    return LSonic.getVoltage() * Constants.sonicConstants.voltageToInchesConversionFactor;
+    return LSonic.getVoltage();// * Constants.sonicConstants.voltageToInchesConversionFactor;
   }
 
   public double getRightRangeIn() {
-    return RSonic.getVoltage() * Constants.sonicConstants.voltageToInchesConversionFactor;
+    return RSonic.getVoltage();// * Constants.sonicConstants.voltageToInchesConversionFactor;
   }
 
   @Override

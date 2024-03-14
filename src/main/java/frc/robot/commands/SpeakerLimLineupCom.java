@@ -14,6 +14,7 @@ public class SpeakerLimLineupCom extends Command {
   private final LimelightSub m_LimelightSub;
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean linedUp = false;
+  private boolean NoLimelight = false;
 
   /** Creates a new LimLineupCom. */
   public SpeakerLimLineupCom(LimelightSub LimSub, SwerveSubSystem SwerveSub) {
@@ -26,26 +27,34 @@ public class SpeakerLimLineupCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    NoLimelight = false;
     linedUp = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
-      m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
-    }
-    else {
-      if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) > 0) {
+    try {
+      if (m_LimelightSub.getTarget() != 4 || m_LimelightSub.getTarget() != 7) {
         m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
       }
-      else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
-        m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
-      }
+
       else {
-        linedUp = true;
+        if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) > 0) {
+          m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
+        } else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
+          m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
+        } else {
+          linedUp = true;
+        }
       }
     }
+
+    catch (Exception e) {
+      NoLimelight = true;
+      // TODO: handle exception
+    }
+
   }
 
   // Called once the command ends or is interrupted.
@@ -56,6 +65,6 @@ public class SpeakerLimLineupCom extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return linedUp;
+    return linedUp || NoLimelight;
   }
 }

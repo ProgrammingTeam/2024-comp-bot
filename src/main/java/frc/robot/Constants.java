@@ -23,7 +23,7 @@ public final class Constants {
   }
 
   public static class LimelightConstants {
-    public static final double limelightHeight = 31;
+    public static final double limelightHeight = 24.5;
     // Do not change zero it is a placeholder and should not be used in the code.
     public static final double[] targetHeights = { 0, 53.375, 53.375, 58.125, 58.125, 53.375, 53.375, 58.125, 58.125,
         53.375, 53.375, 52.75, 52.75, 52.75, 52.75, 52.75, 52.75 };
@@ -31,7 +31,7 @@ public final class Constants {
     public static final double[] targetAngle = { 0, 1, 2, 180, 180, 270, 270, 180, 180, 9, 10, 300, 60, 180, 180, 60,
         300 };
 
-    public static final double angleOffset = 0.5;
+    public static final double angleOffset = 0;
 
     public static final double kp = 0.002;
 

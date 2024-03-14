@@ -30,7 +30,7 @@ public class GroundIntakeCom extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_GroundIntakeSub.setMotors(-m_GroundSpeed, m_BeltSpeed);
+    m_GroundIntakeSub.setMotors(-m_GroundSpeed, -m_BeltSpeed);
   }
 
   // Called once the command ends or is interrupted.

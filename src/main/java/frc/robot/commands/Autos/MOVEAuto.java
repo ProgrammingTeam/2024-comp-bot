@@ -18,7 +18,7 @@ public class MOVEAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSwerveCommand(m_SwerveSub, .3, 0, 10)
+      new AutoSwerveCommand(m_SwerveSub, -.3, 0, 100)
     );
   }
 }

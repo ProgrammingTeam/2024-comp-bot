@@ -39,13 +39,14 @@ public class AutoSwerveCommand extends Command {
     // Rotation value subject to change
     m_swerveSubSystem.drive(m_XMovement, m_YMovement, 0);
     distanceTraveled += Units.metersToInches(m_swerveSubSystem.metersPSec / 50);
-    SmartDashboard.getNumber("Preceived Distence Traveled", distanceTraveled);
+    SmartDashboard.putNumber("Preceived Distence Traveled", distanceTraveled);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_swerveSubSystem.drive(0, 0, 0);
+    distanceTraveled = 0;
   }
 
   // Returns true when the command should end.
