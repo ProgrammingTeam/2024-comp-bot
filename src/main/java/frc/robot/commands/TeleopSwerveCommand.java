@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubSystem;
 
 public class TeleopSwerveCommand extends Command {
@@ -30,9 +31,9 @@ public class TeleopSwerveCommand extends Command {
   @Override
   public void execute() {
     m_swerveSubSystem.drive(
-      Math.pow(-m_LJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81,
-      Math.pow(-m_LJoystick.getRawAxis(1), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81,
-      Math.pow(-m_RJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * 3.81);
+      Math.pow(-m_LJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * Constants.DriveVariables.SpeedMultiplierVariable,
+      Math.pow(-m_LJoystick.getRawAxis(1), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * Constants.DriveVariables.SpeedMultiplierVariable,
+      Math.pow(-m_RJoystick.getRawAxis(0), 3) * ((-m_RJoystick.getRawAxis(3) + 1) / 2) * Constants.DriveVariables.SpeedMultiplierVariable);
   }
 
   // Called once the command ends or is interrupted.

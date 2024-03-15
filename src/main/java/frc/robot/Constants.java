@@ -22,6 +22,11 @@ public final class Constants {
     public static final int RighttJoysticPort = 2;
   }
 
+  public static class DriveVariables {
+    public static final double SpeedMultiplierVariable = 3.81;
+  }
+
+
   public static class LimelightConstants {
     public static final double limelightHeight = 24.5;
     // Do not change zero it is a placeholder and should not be used in the code.
