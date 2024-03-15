@@ -6,7 +6,7 @@ package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutoNoteLineup;
+//import frc.robot.commands.AutoNoteLineup;
 import frc.robot.commands.AutoSwerveCommand;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.commands.ShootCmd;
