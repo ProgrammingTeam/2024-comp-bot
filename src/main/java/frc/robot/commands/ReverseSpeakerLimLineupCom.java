@@ -10,14 +10,14 @@ import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.SwerveSubSystem;
 
-public class SpeakerLimLineupCom extends Command {
+public class ReverseSpeakerLimLineupCom extends Command {
   private final LimelightSub m_LimelightSub;
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean linedUp = false;
   private boolean NoLimelight = false;
 
   /** Creates a new LimLineupCom. */
-  public SpeakerLimLineupCom(LimelightSub LimSub, SwerveSubSystem SwerveSub) {
+  public ReverseSpeakerLimLineupCom(LimelightSub LimSub, SwerveSubSystem SwerveSub) {
     m_LimelightSub = LimSub;
     m_SwerveSubSystem = SwerveSub;
     addRequirements(m_SwerveSubSystem);
@@ -36,7 +36,7 @@ public class SpeakerLimLineupCom extends Command {
   public void execute() {
     try {
       if (m_LimelightSub.getTarget() != 4 && m_LimelightSub.getTarget() != 7) {
-        m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
+        m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
       }
 
       else {

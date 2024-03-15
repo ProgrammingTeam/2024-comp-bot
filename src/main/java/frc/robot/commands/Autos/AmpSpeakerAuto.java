@@ -36,16 +36,19 @@ public class AmpSpeakerAuto extends SequentialCommandGroup {
             Commands.waitSeconds(1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
+            new GroundIntakeCom(m_GroundIntakeSub, .35, 0.2),
             Commands.waitSeconds(1)),
-        // new AutoNoteLineup(m_SwerveSub),
-        new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
+        new AutoNoteLineup(m_SwerveSub, -45),
+        //new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
-            new GroundIntakeCom(m_GroundIntakeSub, 0.1, 0.1)),
+            new AutoSwerveCommand(m_SwerveSub, -0.25, 0, 80),
+            new GroundIntakeCom(m_GroundIntakeSub, 1, 1)),
+        new AutoSwerveCommand(m_SwerveSub, 0.25, 0, 85),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, 0.1, 0, 12),
-            new ShootCmd(m_ShooterSub, ShootModes.SpinUp)),
+            new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
+            new SpeakerLimLineupCom(m_LimelightSub, m_SwerveSub)),
         Commands.race(
+            new GroundIntakeCom(m_GroundIntakeSub, .35, 0.2),
             new ShootCmd(m_ShooterSub, ShootModes.Shoot)),
             Commands.waitSeconds(1));
   }

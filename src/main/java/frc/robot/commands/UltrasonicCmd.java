@@ -14,7 +14,7 @@ public class UltrasonicCmd extends Command {
   private boolean isRobotOrientationEven;
   private boolean TurningLeft;
   private final SwerveSubSystem m_SwerveSub;
-
+  
   public UltrasonicCmd(UltraSonicSub ultraSonicSub, SwerveSubSystem swerveSub) {
     m_UltraSonicSub = ultraSonicSub;
     m_SwerveSub = swerveSub;

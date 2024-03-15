@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.ClimbSub;
@@ -28,7 +29,7 @@ public class ManualClimbCom extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ClimbSub.setMotors(xboxController.getLeftY(), xboxController.getRightY());
+    ClimbSub.setMotors(MathUtil.applyDeadband(xboxController.getLeftY(), 0.1), MathUtil.applyDeadband(xboxController.getRightY(), 0.1));
   }
 
   // Called once the command ends or is interrupted.

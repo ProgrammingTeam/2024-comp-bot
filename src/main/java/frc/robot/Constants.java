@@ -42,7 +42,8 @@ public final class Constants {
     public static final double TyTolerance = 0.5;
   }
 
-  public static final double DriveSpeed = 0.07;
+  public static final double SpeedMultiplier = 3.81;
+  public static final double TurnMultiplier = 2;
 
   public static class GroundIntake {
     public static final int GIntakeID = 11;
@@ -88,8 +89,7 @@ public final class Constants {
   }
 
   public static class AutoConstants {
-    public static final double AutoTurnSpeed = 0;
-    public static final double OrientaionOffset = 0;
+    public static final double AutoTurnSpeed = 0.15;
     public static final double InchesTolerence = 0.5;
   }
 }
