@@ -15,7 +15,6 @@ import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
-import frc.robot.commands.LimelightDriveCom;
 import frc.robot.subsystems.UltraSonicSub;
 import frc.robot.commands.ShootCmd;
 import frc.robot.commands.ButtonClimber;
@@ -74,10 +73,10 @@ public class RobotContainer {
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, leftJoystick, RightJoystick);
     swerveSubSystem.setDefaultCommand(swerveCommand);
-    autoChooser.setDefaultOption("Nothing auto", AutoSelecter.DoNothing);
+    autoChooser.setDefaultOption("Shoot auto", AutoSelecter.DoNothing);
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
-    autoChooser.addOption("Sourse shoot auto", AutoSelecter.SourseSpeakerAuto);
-    autoChooser.addOption("Amp shoot auto", AutoSelecter.AmpSpeakerAuto);
+    autoChooser.addOption("left of subwoofer shoot auto", AutoSelecter.SourseSpeakerAuto);
+    autoChooser.addOption("right of subwoofer shoot auto", AutoSelecter.AmpSpeakerAuto);
     autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
     SmartDashboard.putData(autoChooser);
 
@@ -93,7 +92,7 @@ public class RobotContainer {
     m_driverController.axisGreaterThan(3, 0.75).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot).alongWith(new GroundIntakeCom(m_GroundIntakeSub, 0.3, 0.25)));
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     m_driverController.axisGreaterThan(2, 0.75).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
-
+    //m_driverController.x().onTrue(new InstantCommand(m_ClimbSub::ResetClimbEncoders, m_ClimbSub));
     m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 1,  1));
     m_driverController.y().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
     //m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
@@ -124,10 +123,10 @@ public class RobotContainer {
         return new MOVEAuto(swerveSubSystem);
 
       case DoNothing:
-        return new DoNothing();
+        return new DoNothing(m_ShooterSub, m_GroundIntakeSub);
         
       default:
-        return new DoNothing();
+        return new DoNothing(m_ShooterSub, m_GroundIntakeSub);
     }
   }
 }

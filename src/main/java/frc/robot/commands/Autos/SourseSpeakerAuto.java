@@ -10,8 +10,6 @@ import frc.robot.commands.AutoNoteLineup;
 import frc.robot.commands.AutoSwerveCommand;
 import frc.robot.commands.GroundIntakeCom;
 import frc.robot.commands.ShootCmd;
-import frc.robot.commands.SpeakerLimLineupCom;
-import frc.robot.commands.UltrasonicCmd;
 import frc.robot.commands.ShootCmd.ShootModes;
 import frc.robot.subsystems.GroundIntakeSub;
 import frc.robot.subsystems.LimelightSub;
@@ -30,6 +28,7 @@ public class SourseSpeakerAuto extends SequentialCommandGroup {
     addCommands(
         new ReverseSpeakerLimLineupCom(m_LimelightSub, m_SwerveSub),
         Commands.race(
+            new AutoSwerveCommand(m_SwerveSub, 0, 0, 10),
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
             Commands.waitSeconds(1)),
         Commands.race(
@@ -37,7 +36,7 @@ public class SourseSpeakerAuto extends SequentialCommandGroup {
             new GroundIntakeCom(m_GroundIntakeSub, 0.35, 0.2)),
             Commands.waitSeconds(1),
         //new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
-        new AutoNoteLineup(m_SwerveSub, 45),
+        new AutoNoteLineup(m_SwerveSub),
         Commands.race(
             new AutoSwerveCommand(m_SwerveSub, -0.25, 0, 80),
             new GroundIntakeCom(m_GroundIntakeSub, 1, 1)),

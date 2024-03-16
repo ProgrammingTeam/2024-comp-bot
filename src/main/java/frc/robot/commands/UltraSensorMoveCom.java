@@ -14,7 +14,6 @@ public class UltraSensorMoveCom extends Command {
   private final SwerveSubSystem m_SwerveSubSystem;
   private final double m_distanceFromObject;
   private boolean atDestination;
-  private boolean GoingForwards;
   /** Creates a new UltraSensorMoveCom. */
   public UltraSensorMoveCom(UltraSonicSub SonicSub, SwerveSubSystem Swerve, double DistFromObject) {
     m_UltraSonicSub = SonicSub;

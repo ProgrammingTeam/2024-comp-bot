@@ -40,11 +40,10 @@ public class SpeakerLimLineupCom extends Command {
       }
 
       else {
-        if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) > 0) {
+        if (MathUtil.isNear(0, m_LimelightSub.angleFromCenter(), 3)) {
           m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
-        } else if (MathUtil.applyDeadband(m_LimelightSub.angleFromCenter(), 1) < 0) {
-          m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
-        } else {
+        }
+        else {
           linedUp = true;
         }
       }

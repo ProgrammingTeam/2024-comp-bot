@@ -13,12 +13,10 @@ public class AutoNoteLineup extends Command {
   private final SwerveSubSystem m_SwerveSubSystem;
   private boolean LinedUp;
   private double finalOrientation;
-  private final double m_OrientaionOffset;
 
   /** Creates a new AutoNoteLineup. */
-  public AutoNoteLineup(SwerveSubSystem SwerveSub, double OrientaionOffset) {
+  public AutoNoteLineup(SwerveSubSystem SwerveSub) {
     m_SwerveSubSystem = SwerveSub;
-    m_OrientaionOffset = OrientaionOffset;
     addRequirements(m_SwerveSubSystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -27,15 +25,20 @@ public class AutoNoteLineup extends Command {
   @Override
   public void initialize() {
     LinedUp = false;
-    finalOrientation = m_SwerveSubSystem.getRobotOrientation() - m_OrientaionOffset;
+    finalOrientation = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 1)) {
+    if (m_SwerveSubSystem.getRobotOrientation() >= finalOrientation) {
+      m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
+    } 
+    else if(m_SwerveSubSystem.getRobotOrientation() <= finalOrientation){
       m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
-    } else {
+    } 
+    
+    else if(MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 3)) {
       LinedUp = true;
     }
   }
