@@ -91,7 +91,7 @@ public class RobotContainer {
     // m_LimelightSub));
     m_driverController.axisGreaterThan(3, 0.75).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot).alongWith(new GroundIntakeCom(m_GroundIntakeSub, 0.3, 0.25)));
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
-    m_driverController.axisGreaterThan(2, 0.75).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    m_driverController.axisGreaterThan(2, 0.75).and(m_driverController.axisLessThan(3, 0.75)).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
     //m_driverController.x().onTrue(new InstantCommand(m_ClimbSub::ResetClimbEncoders, m_ClimbSub));
     m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 1,  1));
     m_driverController.y().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
