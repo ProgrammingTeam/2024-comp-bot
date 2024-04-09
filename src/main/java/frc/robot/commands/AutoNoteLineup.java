@@ -31,16 +31,17 @@ public class AutoNoteLineup extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_SwerveSubSystem.getRobotOrientation() >= finalOrientation) {
+    if(MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 3)) {
+      LinedUp = true;
+    }
+    else if (m_SwerveSubSystem.getRobotOrientation() >= finalOrientation) {
       m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
     } 
     else if(m_SwerveSubSystem.getRobotOrientation() <= finalOrientation){
       m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
     } 
     
-    else if(MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 3)) {
-      LinedUp = true;
-    }
+    
   }
 
   // Called once the command ends or is interrupted.
