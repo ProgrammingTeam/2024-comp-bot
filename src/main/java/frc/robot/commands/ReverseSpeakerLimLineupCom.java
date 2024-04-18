@@ -35,12 +35,12 @@ public class ReverseSpeakerLimLineupCom extends Command {
   @Override
   public void execute() {
     try {
-      if (m_LimelightSub.getTarget() != 4 && m_LimelightSub.getTarget() != 7) {
+      if (m_LimelightSub.getTarget() != 3 && m_LimelightSub.getTarget() != 7) {
         m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
       }
 
       else {
-        if (MathUtil.isNear(0, m_LimelightSub.angleFromCenter(), 3)) {
+        if (!MathUtil.isNear(0, m_LimelightSub.angleFromCenter(), 3)) {
           m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
         } 
         else {
@@ -59,6 +59,7 @@ public class ReverseSpeakerLimLineupCom extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_SwerveSubSystem.drive(0, 0, 0);
   }
 
   // Returns true when the command should end.

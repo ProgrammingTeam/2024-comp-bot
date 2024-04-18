@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSub;
@@ -27,6 +28,7 @@ public class SpeakerLimLineupCom extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putString("LimLineup ", "IS INITIALIZED");
     NoLimelight = false;
     linedUp = false;
   }
@@ -35,21 +37,24 @@ public class SpeakerLimLineupCom extends Command {
   @Override
   public void execute() {
     try {
-      if (m_LimelightSub.getTarget() != 4 && m_LimelightSub.getTarget() != 7) {
+      if (m_LimelightSub.getTarget() != 3 && m_LimelightSub.getTarget() != 7) {
         m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
       }
 
       else {
-        if (MathUtil.isNear(0, m_LimelightSub.angleFromCenter(), 3)) {
+        if (!MathUtil.isNear(0, m_LimelightSub.angleFromCenter(), 3)) {
           m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
+          
         }
         else {
+          SmartDashboard.putString("LimLineup ", "is now complete");
           linedUp = true;
         }
       }
     }
 
     catch (Exception e) {
+      SmartDashboard.putString("LimLineup ", "Caught an exeption!");
       NoLimelight = true;
       // TODO: handle exception
     }
@@ -59,6 +64,7 @@ public class SpeakerLimLineupCom extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_SwerveSubSystem.drive(0, 0, 0);
   }
 
   // Returns true when the command should end.

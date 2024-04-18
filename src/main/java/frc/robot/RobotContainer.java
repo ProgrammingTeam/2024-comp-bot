@@ -9,6 +9,7 @@ import frc.robot.commands.Autos.AmpSpeakerAuto;
 import frc.robot.commands.Autos.AutoSelecter;
 import frc.robot.commands.Autos.DoNothing;
 import frc.robot.commands.Autos.FrontSpeakerAuto;
+import frc.robot.commands.Autos.FrontSpeakerFourNoteAuto;
 import frc.robot.commands.Autos.MOVEAuto;
 import frc.robot.commands.Autos.SourseSpeakerAuto;
 import frc.robot.commands.ShootCmd.ShootModes;
@@ -75,6 +76,7 @@ public class RobotContainer {
     swerveSubSystem.setDefaultCommand(swerveCommand);
     autoChooser.setDefaultOption("Shoot auto", AutoSelecter.DoNothing);
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
+    autoChooser.addOption("Four Note Auto", AutoSelecter.FourNoteAuto);
     autoChooser.addOption("left of subwoofer shoot auto", AutoSelecter.SourseSpeakerAuto);
     autoChooser.addOption("right of subwoofer shoot auto", AutoSelecter.AmpSpeakerAuto);
     autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
@@ -118,6 +120,9 @@ public class RobotContainer {
 
       case AmpSpeakerAuto:
         return new AmpSpeakerAuto(m_ShooterSub, swerveSubSystem, m_LimelightSub, m_GroundIntakeSub, m_UltraSonicSub);
+
+      case FourNoteAuto:
+        return new FrontSpeakerFourNoteAuto(m_ShooterSub, swerveSubSystem, m_GroundIntakeSub);
 
       case MOOOOOVE:
         return new MOVEAuto(swerveSubSystem);

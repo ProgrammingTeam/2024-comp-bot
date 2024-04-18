@@ -34,10 +34,10 @@ public class AutoNoteLineup extends Command {
     if(MathUtil.isNear(finalOrientation, m_SwerveSubSystem.getRobotOrientation(), 3)) {
       LinedUp = true;
     }
-    else if (m_SwerveSubSystem.getRobotOrientation() >= finalOrientation) {
+    else if (m_SwerveSubSystem.getRobotOrientation() <= finalOrientation) {
       m_SwerveSubSystem.drive(0, 0, Constants.AutoConstants.AutoTurnSpeed);
     } 
-    else if(m_SwerveSubSystem.getRobotOrientation() <= finalOrientation){
+    else if(m_SwerveSubSystem.getRobotOrientation() >= finalOrientation){
       m_SwerveSubSystem.drive(0, 0, -Constants.AutoConstants.AutoTurnSpeed);
     } 
     

@@ -33,8 +33,8 @@ public class SourseSpeakerAuto extends SequentialCommandGroup {
             Commands.waitSeconds(1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
-            new GroundIntakeCom(m_GroundIntakeSub, 0.35, 0.2)),
-            Commands.waitSeconds(1),
+            new GroundIntakeCom(m_GroundIntakeSub, 0.35, 0.2),
+            Commands.waitSeconds(1)),
         //new UltrasonicCmd(m_UltraSonicSub, m_SwerveSub),
         new AutoNoteLineup(m_SwerveSub),
         Commands.race(
