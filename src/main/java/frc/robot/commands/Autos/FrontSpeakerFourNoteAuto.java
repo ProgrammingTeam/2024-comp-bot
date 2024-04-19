@@ -5,6 +5,7 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoSwerveCommand;
 import frc.robot.commands.GroundIntakeCom;
@@ -20,19 +21,20 @@ import frc.robot.subsystems.SwerveSubSystem;
 public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
   /** Creates a new FrontSpeakerAuto. */
   private final double TimeToShoot = 0.4;
-  private final double DrivePercentage = 0.25;
-  private final double noteSeparation = 57;
-  private final double SpeakerToNoteDist = 78;
-  private final double LongXPercentage = noteSeparation/SpeakerToNoteDist;
-  private final double DistAwayFromNote = 36;
-  private final double DistReverseDiagnal = SpeakerToNoteDist - DistAwayFromNote;
+  private final double DrivePercentage = 0.3;
+  private final double noteSeparation = 50;
+  private final double BackOfRobotToNoteDist = 78;
+  private final double LongXPercentage = noteSeparation/BackOfRobotToNoteDist;
+  private final double DistAwayFromNote = 44;
+  private final double DistReverseDiagnal = BackOfRobotToNoteDist - DistAwayFromNote;
   private final double ShortXPercentage = noteSeparation/DistReverseDiagnal;
   private final double ShortDiagDistMagniutude = Math.sqrt(DistReverseDiagnal*DistReverseDiagnal + noteSeparation*noteSeparation);
-  private final double LongDiagDistMagniutude = Math.sqrt(SpeakerToNoteDist*SpeakerToNoteDist + noteSeparation*noteSeparation);
+  private final double LongDiagDistMagniutude = Math.sqrt(BackOfRobotToNoteDist*BackOfRobotToNoteDist + noteSeparation*noteSeparation);
   
   public FrontSpeakerFourNoteAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, GroundIntakeSub m_GroundIntakeSub) {
     addCommands(
       //first loaded note and behind note to shoot
+        new InstantCommand(m_SwerveSub::resetGyro, m_SwerveSub),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
             Commands.waitSeconds(1)),
@@ -41,10 +43,10 @@ public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
             new GroundIntakeCom(m_GroundIntakeSub, .35, 0.2),
             Commands.waitSeconds(TimeToShoot)),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, 0, 80),
+            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, 0, 50),
             new GroundIntakeCom(m_GroundIntakeSub, .6, 1.0)),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, 0, 85),
+            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, 0, 55),
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
             new GroundIntakeCom(m_GroundIntakeSub, .6, 1)),
         Commands.race(
@@ -57,6 +59,7 @@ public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
+            new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1),
             new AutoSwerveCommand(m_SwerveSub, DrivePercentage, -LongXPercentage * DrivePercentage, LongDiagDistMagniutude)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
@@ -69,6 +72,7 @@ public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
+            new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1),
             new AutoSwerveCommand(m_SwerveSub, DrivePercentage, LongXPercentage * DrivePercentage, LongDiagDistMagniutude)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
