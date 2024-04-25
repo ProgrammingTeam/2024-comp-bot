@@ -21,17 +21,17 @@ import frc.robot.subsystems.SwerveSubSystem;
 public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
   /** Creates a new FrontSpeakerAuto. */
   private final double TimeToShoot = 0.4;
-  private final double DrivePercentage = 0.3;
-  private final double noteSeparation = 50;
-  private final double BackOfRobotToNoteDist = 78;
+  private final double DrivePercentage = 0.35;
+  private final double noteSeparation = 57;
+  private final double BackOfRobotToNoteDist = 78-20;
   private final double LongXPercentage = noteSeparation/BackOfRobotToNoteDist;
-  private final double DistAwayFromNote = 44;
-  private final double DistReverseDiagnal = BackOfRobotToNoteDist - DistAwayFromNote;
-  private final double ShortXPercentage = noteSeparation/DistReverseDiagnal;
-  private final double ShortDiagDistMagniutude = Math.sqrt(DistReverseDiagnal*DistReverseDiagnal + noteSeparation*noteSeparation);
   private final double LongDiagDistMagniutude = Math.sqrt(BackOfRobotToNoteDist*BackOfRobotToNoteDist + noteSeparation*noteSeparation);
-  
-  public FrontSpeakerFourNoteAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, GroundIntakeSub m_GroundIntakeSub) {
+  private final double angle = Math.toDegrees(Math.asin(noteSeparation/LongDiagDistMagniutude));
+ //private final double DistAwayFromNote = 44;
+  //private final double DistReverseDiagnal = BackOfRobotToNoteDist - DistAwayFromNote;
+  //private final double ShortXPercentage = noteSeparation/DistReverseDiagnal;
+  //private final double ShortDiagDistMagniutude = Math.sqrt(DistReverseDiagnal*DistReverseDiagnal + noteSeparation*noteSeparation);
+   public FrontSpeakerFourNoteAuto(ShooterSub m_ShooterSub, SwerveSubSystem m_SwerveSub, GroundIntakeSub m_GroundIntakeSub) {
     addCommands(
       //first loaded note and behind note to shoot
         new InstantCommand(m_SwerveSub::resetGyro, m_SwerveSub),
@@ -53,27 +53,26 @@ public class FrontSpeakerFourNoteAuto extends SequentialCommandGroup {
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             Commands.waitSeconds(TimeToShoot)),
       //Left speaker note collect and shoot
-        new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, ShortXPercentage * DrivePercentage, ShortDiagDistMagniutude),
-        Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, 0, DistAwayFromNote),
+     Commands.race(
+            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, LongXPercentage * DrivePercentage, LongDiagDistMagniutude, -angle),
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1),
-            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, -LongXPercentage * DrivePercentage, LongDiagDistMagniutude)),
+            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, -LongXPercentage * DrivePercentage, LongDiagDistMagniutude + 5, 0)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             new GroundIntakeCom(m_GroundIntakeSub, .35, 0.2),
             Commands.waitSeconds(TimeToShoot)),
+            new AutoSwerveCommand(m_SwerveSub, 0, -DrivePercentage, 5),
       //Right speaker note collect and shoot
-        new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, -ShortXPercentage * DrivePercentage, ShortDiagDistMagniutude),
         Commands.race(
-            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, 0, DistAwayFromNote),
+            new AutoSwerveCommand(m_SwerveSub, -DrivePercentage, -LongXPercentage * DrivePercentage, LongDiagDistMagniutude, angle),
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.SpinUp),
             new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1),
-            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, LongXPercentage * DrivePercentage, LongDiagDistMagniutude)),
+            new AutoSwerveCommand(m_SwerveSub, DrivePercentage, LongXPercentage * DrivePercentage, LongDiagDistMagniutude, 0)),
         Commands.race(
             new ShootCmd(m_ShooterSub, ShootModes.Shoot),
             new GroundIntakeCom(m_GroundIntakeSub, .35, 0.2),

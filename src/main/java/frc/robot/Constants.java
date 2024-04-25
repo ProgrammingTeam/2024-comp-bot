@@ -87,7 +87,7 @@ public final class Constants {
   }
 
   public static class AutoConstants {
-    public static final double AutoTurnSpeed = 0.15;
+    public static final double AutoTurnSpeed = 0.25;
     public static final double InchesTolerence = 0.5;
   }
 }
