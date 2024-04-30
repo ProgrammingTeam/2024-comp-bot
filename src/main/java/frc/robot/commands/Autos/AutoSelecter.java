@@ -6,5 +6,7 @@ public enum AutoSelecter {
     SourseSpeakerAuto,
     AmpSpeakerAuto,
     FourNoteAuto,
-    MOOOOOVE;
+    MOOOOOVE,
+    pathplannerTest,
+    PathPlannerFourNote;
 }

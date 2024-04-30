@@ -17,8 +17,6 @@ import frc.robot.subsystems.LimelightSub;
 import frc.robot.subsystems.ShooterSub;
 import frc.robot.subsystems.SwerveSubSystem;
 import frc.robot.subsystems.UltraSonicSub;
-import frc.robot.commands.ShootCmd;
-import frc.robot.commands.ButtonClimber;
 import frc.robot.commands.*;
 import frc.robot.subsystems.CameraSub;
 import frc.robot.subsystems.ClimbSub;
@@ -38,6 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.util.Units;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.auto.NamedCommands;
 
 public class RobotContainer {
   private final ShooterSub m_ShooterSub = new ShooterSub();
@@ -71,6 +71,10 @@ public class RobotContainer {
     } catch (Exception e) {
       // handled exception
     }
+    NamedCommands.registerCommand("spin up", new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    NamedCommands.registerCommand("shoot", new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    NamedCommands.registerCommand("ground intake", new GroundIntakeCom(m_GroundIntakeSub, .6, 1));
+
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, leftJoystick, RightJoystick);
     swerveSubSystem.setDefaultCommand(swerveCommand);
@@ -80,6 +84,8 @@ public class RobotContainer {
     autoChooser.addOption("left of subwoofer shoot auto", AutoSelecter.SourseSpeakerAuto);
     autoChooser.addOption("right of subwoofer shoot auto", AutoSelecter.AmpSpeakerAuto);
     autoChooser.addOption("MOVE backward auto", AutoSelecter.MOOOOOVE);
+    autoChooser.addOption("path planner test", AutoSelecter.pathplannerTest);
+    autoChooser.addOption("path planner 4 Note", AutoSelecter.PathPlannerFourNote);
     SmartDashboard.putData(autoChooser);
 
     // swerveSubSystem.setDefaultCommand(swerveCommand);
@@ -129,7 +135,12 @@ public class RobotContainer {
 
       case DoNothing:
         return new DoNothing(m_ShooterSub, m_GroundIntakeSub);
+
+      case pathplannerTest:
+        return new PathPlannerAuto("PathPlanner 2 note test");
         
+      case PathPlannerFourNote:
+        return new PathPlannerAuto("PathPlanner 4 note Auto");
       default:
         return new DoNothing(m_ShooterSub, m_GroundIntakeSub);
     }
