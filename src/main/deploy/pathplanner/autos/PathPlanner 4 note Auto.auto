@@ -24,7 +24,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 0.6
                 }
               },
               {
@@ -50,6 +50,12 @@
                 "type": "wait",
                 "data": {
                   "waitTime": 0.4
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ground intake"
                 }
               }
             ]
@@ -88,6 +94,12 @@
                 "type": "named",
                 "data": {
                   "name": "spin up"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ground intake"
                 }
               }
             ]
@@ -146,6 +158,12 @@
                 "data": {
                   "name": "ground intake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "spin up"
+                }
               }
             ]
           }
@@ -202,6 +220,12 @@
                 "type": "named",
                 "data": {
                   "name": "ground intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "spin up"
                 }
               }
             ]

@@ -58,7 +58,7 @@ public final class Constants {
 
     public static final int upperShooterID = 13;
     public static final int lowerShooterID = 12;
-    public static final double DefaultShootVelocity = 0;
+    public static final double DefaultShootVelocity = 5000;
     public static final int IntakeLimiterSwitch = 0;
 
     public static final double AmpInteriorShootSpeed = 0.25;
