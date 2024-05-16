@@ -60,6 +60,7 @@ public class RobotContainer {
   private final SwerveSubSystem swerveSubSystem;
   private final TeleopSwerveCommand swerveCommand;
   private final xboxTeleopSwerveCom xboxswerveCommand;
+  private final GlobalDriveCom m_GlobalDriveCom;
   public static boolean isBlueAllience() {
     return DriverStation.getAlliance().get() == Alliance.Blue;
   }  
@@ -77,9 +78,10 @@ public class RobotContainer {
       // handled exception
     }
     swerveSubSystem = new SwerveSubSystem(swerveDrive);
+    m_GlobalDriveCom = new GlobalDriveCom(swerveSubSystem, () -> m_driverController.getRawAxis(0), () ->  m_driverController.getRawAxis(0), () ->  m_driverController.getRawAxis(0), () ->  m_driverController.getRawAxis(0));
     swerveCommand = new TeleopSwerveCommand(swerveSubSystem, leftJoystick, RightJoystick);
     xboxswerveCommand = new xboxTeleopSwerveCom(swerveSubSystem, m_driverController);
-    swerveSubSystem.setDefaultCommand(xboxswerveCommand);
+    swerveSubSystem.setDefaultCommand(m_GlobalDriveCom);
 
     // DriveSwitch = new FunctionalCommand(null, 
     // () -> {switch (driveCon.getSelected()) {
