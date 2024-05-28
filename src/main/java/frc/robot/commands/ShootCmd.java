@@ -14,6 +14,7 @@ public class ShootCmd extends Command {
   ShootModes ShootSelection;
   double BottomMotor;
   double TopMotor;
+  double LaunchMotor;
   double FireVelocity;
 
   public ShootCmd(ShooterSub sub, ShootModes mode, double rpmToFire) {
@@ -33,7 +34,7 @@ public class ShootCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.setLaunchMotors(0, 0);
+    Shooter.setLaunchMotors(0, 0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,20 +42,23 @@ public class ShootCmd extends Command {
   public void execute() {
     switch (ShootSelection) {
       case Shoot:
-        BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
-        TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        BottomMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        TopMotor = -Constants.ShooterConstants.ExteriorShooterSpeed;
+        LaunchMotor = Constants.ShooterConstants.InteriorShooterSpeed;
         SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
       case Load:
         BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
         TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        LaunchMotor = 0;
         SmartDashboard.putString("Current Shooter Function", "Loading");
         break;
 
       case SpinUp:
-        BottomMotor = 0;
+        BottomMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
         TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+        LaunchMotor = 0;
         SmartDashboard.putString("Current Shooter Function", "Spinning Up");
         break;
 
@@ -66,11 +70,13 @@ public class ShootCmd extends Command {
 
       case SmartShoot:
         if (Shooter.Velocity() <= FireVelocity) {
-          BottomMotor = 0;
+          BottomMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+          LaunchMotor = 0;
         } else {
-          BottomMotor = Constants.ShooterConstants.InteriorShooterSpeed;
+          BottomMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
           TopMotor = Constants.ShooterConstants.ExteriorShooterSpeed;
+          LaunchMotor = Constants.ShooterConstants.InteriorShooterSpeed;
         }
         SmartDashboard.putString("Current Shooter Function", "Smart Shooting");
         break;
@@ -78,21 +84,23 @@ public class ShootCmd extends Command {
       case NOTHING:
         BottomMotor = 0;
         TopMotor = 0;
+        LaunchMotor = 0;
         SmartDashboard.putString("Current Shooter Function", "Idle");
         break;
 
       default:
         BottomMotor = 0;
         TopMotor = 0;
+        LaunchMotor =0;
         break;
     }
-    Shooter.setLaunchMotors(BottomMotor, TopMotor);
+    Shooter.setLaunchMotors(BottomMotor, TopMotor, LaunchMotor);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Shooter.setLaunchMotors(0, 0);
+    Shooter.setLaunchMotors(0, 0, 0);
   }
 
   // Returns true when the command should end.

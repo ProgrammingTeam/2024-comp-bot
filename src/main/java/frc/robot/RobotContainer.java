@@ -102,6 +102,7 @@ public class RobotContainer {
     //     break;}} , null, () -> false);
 
     NamedCommands.registerCommand("spin up", new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    NamedCommands.registerCommand("spin up", new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
     NamedCommands.registerCommand("Smart Shoot", new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
     NamedCommands.registerCommand("shoot", new ShootCmd(m_ShooterSub, ShootModes.Shoot));
     NamedCommands.registerCommand("ground intake", new GroundIntakeCom(m_GroundIntakeSub, .6, 1));

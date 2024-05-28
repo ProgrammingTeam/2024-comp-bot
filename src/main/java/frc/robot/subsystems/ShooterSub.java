@@ -16,21 +16,24 @@ import frc.robot.Constants;
 public class ShooterSub extends SubsystemBase {
   CANSparkMax upperShooter = new CANSparkMax(Constants.ShooterConstants.upperShooterID, MotorType.kBrushless);
   CANSparkMax lowerShooter = new CANSparkMax(Constants.ShooterConstants.lowerShooterID, MotorType.kBrushless);
+  CANSparkMax LaunchMotor = new CANSparkMax(Constants.ShooterConstants.LaunchMotorID, MotorType.kBrushless);
   RelativeEncoder encoder;
   DigitalInput IntakeLimiterSwitch = new DigitalInput(Constants.ShooterConstants.IntakeLimiterSwitch);
 
   /** Creates a new LaunchSub. */
   public ShooterSub() {
-    encoder = upperShooter.getEncoder();
+  encoder = LaunchMotor.getEncoder();
   }
 
-  public void setLaunchMotors(double lowerShooterSpeed, double upperShooterSpeed) {
+  public void setLaunchMotors(double lowerShooterSpeed, double upperShooterSpeed, double LaunchSpeed) {
     if (IntakeLimiterSwitch.get() == true) {
       lowerShooter.set(lowerShooterSpeed);
       upperShooter.set(upperShooterSpeed);
+      LaunchMotor.set(LaunchSpeed);
     } else {
       lowerShooter.set(MathUtil.clamp(lowerShooterSpeed, 0.0, 1.0));
       upperShooter.set(MathUtil.clamp(upperShooterSpeed, 0.0, 1.0));
+      // LaunchMotor.set(MathUtil.clamp(LaunchSpeed, 0.0, 1.0)); 
     }
   }
 
