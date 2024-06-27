@@ -14,24 +14,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSub extends SubsystemBase {
-  CANSparkMax upperShooter = new CANSparkMax(Constants.ShooterConstants.upperShooterID, MotorType.kBrushless);
-  CANSparkMax lowerShooter = new CANSparkMax(Constants.ShooterConstants.lowerShooterID, MotorType.kBrushless);
+  CANSparkMax LeftUpperShooter = new CANSparkMax(Constants.ShooterConstants.LeftUpperShooterID, MotorType.kBrushless);
+  CANSparkMax LeftLowerShooter = new CANSparkMax(Constants.ShooterConstants.LeftLowerShooterID, MotorType.kBrushless);
+  CANSparkMax RightUpperShooter = new CANSparkMax(Constants.ShooterConstants.RightUpperShooterID, MotorType.kBrushless);
+  CANSparkMax RightLowerShooter = new CANSparkMax(Constants.ShooterConstants.RightLowerShooterID, MotorType.kBrushless);
   RelativeEncoder encoder;
   DigitalInput IntakeLimiterSwitch = new DigitalInput(Constants.ShooterConstants.IntakeLimiterSwitch);
 
   /** Creates a new LaunchSub. */
   public ShooterSub() {
-    encoder = upperShooter.getEncoder();
+    encoder = LeftUpperShooter.getEncoder();
   }
 
   public void setLaunchMotors(double lowerShooterSpeed, double upperShooterSpeed) {
     if (IntakeLimiterSwitch.get() == true) {
-      lowerShooter.set(lowerShooterSpeed);
-      upperShooter.set(upperShooterSpeed);
+      LeftLowerShooter.set(lowerShooterSpeed);
+      LeftUpperShooter.set(upperShooterSpeed);
     } else {
-      lowerShooter.set(MathUtil.clamp(lowerShooterSpeed, 0.0, 1.0));
-      upperShooter.set(MathUtil.clamp(upperShooterSpeed, 0.0, 1.0));
+      LeftLowerShooter.set(MathUtil.clamp(lowerShooterSpeed, 0.0, 1.0));
+      LeftLowerShooter.set(MathUtil.clamp(upperShooterSpeed, 0.0, 1.0));
     }
+    RightLowerShooter.follow(LeftLowerShooter);
+    RightUpperShooter.follow(LeftUpperShooter);
   }
 
   @Override

@@ -56,13 +56,17 @@ public final class Constants {
     public static final double InteriorShooterSpeed = 0.75;
     public static final double IntakeShooterSpeed = 0.2;
 
-    public static final int upperShooterID = 13;
-    public static final int lowerShooterID = 12;
+    public static final int LeftUpperShooterID = 13;
+    public static final int LeftLowerShooterID = 12;
+    public static final int RightLowerShooterID = 16;
+    public static final int RightUpperShooterID = 17;
+
     public static final double DefaultShootVelocity = 5000;
     public static final int IntakeLimiterSwitch = 0;
 
     public static final double AmpInteriorShootSpeed = 0.25;
     public static final double AmpExteriorShootSpeed = 0.75 * 0.25;
+
   }
 
   public static class sonicConstants {
