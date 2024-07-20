@@ -17,6 +17,7 @@ import frc.robot.commands.ShootCmd;
 import frc.robot.commands.ButtonClimber;
 import frc.robot.commands.*;
 import frc.robot.subsystems.ClimbSub;
+import frc.robot.subsystems.ClimberArmEncoderReset;
 import frc.robot.subsystems.GroundIntakeSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final LimelightSub m_LimelightSub = new LimelightSub();
   private final GroundIntakeSub m_GroundIntakeSub = new GroundIntakeSub();
   private final ClimbSub m_ClimbSub = new ClimbSub();
+  private final ClimberArmEncoderReset m_ClimberArmEncoderReset = new ClimberArmEncoderReset();
   // private final UltraSonicSub m_UltraSonicSub = new UltraSonicSub();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public final CommandXboxController m_driverController = new CommandXboxController(
@@ -93,6 +95,8 @@ public class RobotContainer {
     m_driverController.axisGreaterThan(3, .5).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
 
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
+    
+    m_driverController.start().onTrue(new ClimberArmEncoderResetCmd(m_ClimberArmEncoderReset,  ));
 
     leftJoystick.button(3).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
     leftJoystick.button(2).whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 0.6, 1));
