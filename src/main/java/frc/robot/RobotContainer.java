@@ -80,7 +80,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("spin up", new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
     NamedCommands.registerCommand("Smart Shoot", new ShootCmd(m_ShooterSub, ShootModes.SmartShoot));
     NamedCommands.registerCommand("shoot", new ShootCmd(m_ShooterSub, ShootModes.Shoot));
-    NamedCommands.registerCommand("ground intake", new GroundIntakeCom(m_GroundIntakeSub, .6, 1));
+    NamedCommands.registerCommand("ground intake", new GroundIntakeCom(m_GroundIntakeSub, 1, 1));
     
     autoChooser.setDefaultOption("Shoot auto", AutoSelecter.DoNothing);
     autoChooser.addOption("Front shoot auto", AutoSelecter.FrontSpeakerAuto);
@@ -106,10 +106,16 @@ public class RobotContainer {
     m_driverController.leftBumper().whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
     m_driverController.rightBumper().whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
     m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot).alongWith(new GroundIntakeCom(m_GroundIntakeSub, 0, 0.25)));
+    //m_driverController.x().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot).alongWith(new GroundIntakeCom(m_GroundIntakeSub, 0, 0.25)));
+   
     m_driverController.b().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Load));
+    
     m_driverController.axisGreaterThan(2, 0.75).and(m_driverController.axisLessThan(3, 0.75)).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SpinUp));
+    //m_driverController.axisLessThan(2, 0.75).and(m_driverController.axisGreaterThan(3, 0.75)).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
+    
     //m_driverController.start().onTrue(new InstantCommand(swerveSubSystem::resetGyro, swerveSubSystem));
     //m_driverController.x().onTrue(new InstantCommand(m_ClimbSub::ResetClimbEncoders, m_ClimbSub));
+    
     m_driverController.a().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, 1,  1));
     m_driverController.y().whileTrue(new GroundIntakeCom(m_GroundIntakeSub, -0.4, -1));
     m_driverController.back().whileTrue(new ShootCmd(m_ShooterSub, ShootModes.SmartShoot).alongWith(new GroundIntakeCom(m_GroundIntakeSub, 0, 0.25)));
@@ -123,7 +129,7 @@ public class RobotContainer {
     RightJoystick.button(1).whileTrue(new ShootCmd(m_ShooterSub, ShootModes.Shoot));
     RightJoystick.button(8).whileTrue(new ButtonClimber(m_ClimbSub, 0.3));
     RightJoystick.button(14).whileTrue(new ButtonClimber(m_ClimbSub, -0.3));
-  }
+  }   
 
   public enum driveController {
     JoystickControl,
