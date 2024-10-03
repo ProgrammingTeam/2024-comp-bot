@@ -79,6 +79,23 @@ public class ShootCmd extends Command {
         SmartDashboard.putString("Current Shooter Function", "Idle");
         break;
 
+      case Demo:
+        BottomMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        TopMotor = -Constants.ShooterConstants.IntakeShooterSpeed;
+        try {
+          wait(2000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        BottomMotor = Constants.ShooterConstants.IntakeShooterSpeed;
+        BottomMotor = Constants.ShooterConstants.IntakeShooterSpeed;
+        try {
+          wait(2000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        break;
+
       default:
         BottomMotor = 0;
         TopMotor = 0;
@@ -105,7 +122,8 @@ public class ShootCmd extends Command {
     Load,
     AmpShot,
     SmartShoot,
-    NOTHING;
+    NOTHING,
+    Demo;
   }
 
 }

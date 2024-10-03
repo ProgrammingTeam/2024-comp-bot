@@ -53,7 +53,7 @@ public final class Constants {
   public static class ShooterConstants {
     public static final double ExteriorShooterSpeed = 1;
     public static final double InteriorShooterSpeed = 0.75;
-    public static final double IntakeShooterSpeed = 0.2;
+    public static final double IntakeShooterSpeed = 0.15;
 
     public static final int upperShooterID = 13;
     public static final int lowerShooterID = 12;
