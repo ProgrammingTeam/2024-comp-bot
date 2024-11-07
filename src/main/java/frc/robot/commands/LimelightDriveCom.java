@@ -45,16 +45,20 @@ public class LimelightDriveCom extends Command {
       m_SwerveSub.drive(0, 0, 0);
       return;
     }
-    try {
+      try {
       DisteancePIDCon.setSetpoint(Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()]);
+
       DisteanceToGo = m_LimelightSub.distenceFromTarget
           - Constants.LimelightConstants.targetDistence[m_LimelightSub.getTarget()];
+
       SmartDashboard.putNumber("distence to go", DisteanceToGo);
+      
       double inverter = Math.signum(DisteanceToGo);
       m_SwerveSub.drive(CenterPIDCon.calculate(m_LimelightSub.angleFromCenter()),
           DisteancePIDCon.calculate(DisteanceToGo) * inverter,
           Constants.LimelightConstants.targetAngle[m_LimelightSub.getTarget()]);
-    } catch (Exception e) {
+    } 
+      catch (Exception e) {
       NoLimelight = true;
       // TODO: handle exception
     }

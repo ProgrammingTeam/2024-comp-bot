@@ -28,6 +28,10 @@ public final class Constants {
     public static final double[] targetDistence = { 0, 100, 60 };
     public static final double[] targetAngle = { 0, 1, 2, 180, 180, 270, 270, 180, 180, 9, 10, 300, 60, 180, 180, 60,
         300 };
+    public static final double[] TargetVerticleOffset = {0, 10};
+    public static final double[] TargetAngleOffset = {0, 10};
+
+
 
     public static final double angleOffset = 45;
 

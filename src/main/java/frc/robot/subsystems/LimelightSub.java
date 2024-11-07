@@ -13,6 +13,7 @@ import frc.robot.Constants;
 
 public class LimelightSub extends SubsystemBase {
   public double distenceFromTarget;
+  public double VerticleOffsetFromTarget;
   private double opposite;
   private double TxValue;
   private double TyValue;
@@ -40,6 +41,9 @@ public class LimelightSub extends SubsystemBase {
       opposite = Constants.LimelightConstants.targetHeights[TidValue] - Constants.LimelightConstants.limelightHeight;
       distenceFromTarget = opposite
           / Math.tan(Math.toRadians(LimeTY.getDouble(0) + Constants.LimelightConstants.angleOffset));
+      
+      VerticleOffsetFromTarget = Math.tan(Math.toRadians(LimeTX.getDouble(0)))
+            * distenceFromTarget;
     }
 
     SmartDashboard.putNumber("Lime TX value", TxValue);
